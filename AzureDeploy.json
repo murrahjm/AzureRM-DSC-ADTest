@@ -6,6 +6,14 @@
       "defaultValue": null,
       "type": "SecureString"
     },
+    "automationAccounts_AutomationAccount1_sku": {
+      "defaultValue": null,
+      "type": "SecureObject"
+    },
+    "automationAccounts_AutomationAccount1_name": {
+      "defaultValue": "AutomationAccount1",
+      "type": "String"
+    },
     "virtualMachines_DC1_name": {
       "defaultValue": "DC1",
       "type": "String"
@@ -53,10 +61,82 @@
     "storageAccounts_adteststoragejm_name": {
       "defaultValue": "adteststoragejm",
       "type": "String"
+    },
+    "modules_Azure_name": {
+      "defaultValue": "AutomationAccount1/Azure",
+      "type": "String"
+    },
+    "modules_Azure.Storage_name": {
+      "defaultValue": "AutomationAccount1/Azure.Storage",
+      "type": "String"
+    },
+    "modules_AzureRM.Automation_name": {
+      "defaultValue": "AutomationAccount1/AzureRM.Automation",
+      "type": "String"
+    },
+    "modules_AzureRM.Compute_name": {
+      "defaultValue": "AutomationAccount1/AzureRM.Compute",
+      "type": "String"
+    },
+    "modules_AzureRM.Profile_name": {
+      "defaultValue": "AutomationAccount1/AzureRM.Profile",
+      "type": "String"
+    },
+    "modules_AzureRM.Resources_name": {
+      "defaultValue": "AutomationAccount1/AzureRM.Resources",
+      "type": "String"
+    },
+    "modules_AzureRM.Sql_name": {
+      "defaultValue": "AutomationAccount1/AzureRM.Sql",
+      "type": "String"
+    },
+    "modules_AzureRM.Storage_name": {
+      "defaultValue": "AutomationAccount1/AzureRM.Storage",
+      "type": "String"
+    },
+    "modules_Microsoft.PowerShell.Core_name": {
+      "defaultValue": "AutomationAccount1/Microsoft.PowerShell.Core",
+      "type": "String"
+    },
+    "modules_Microsoft.PowerShell.Diagnostics_name": {
+      "defaultValue": "AutomationAccount1/Microsoft.PowerShell.Diagnostics",
+      "type": "String"
+    },
+    "modules_Microsoft.PowerShell.Management_name": {
+      "defaultValue": "AutomationAccount1/Microsoft.PowerShell.Management",
+      "type": "String"
+    },
+    "modules_Microsoft.PowerShell.Security_name": {
+      "defaultValue": "AutomationAccount1/Microsoft.PowerShell.Security",
+      "type": "String"
+    },
+    "modules_Microsoft.PowerShell.Utility_name": {
+      "defaultValue": "AutomationAccount1/Microsoft.PowerShell.Utility",
+      "type": "String"
+    },
+    "modules_Microsoft.WSMan.Management_name": {
+      "defaultValue": "AutomationAccount1/Microsoft.WSMan.Management",
+      "type": "String"
+    },
+    "modules_Orchestrator.AssetManagement.Cmdlets_name": {
+      "defaultValue": "AutomationAccount1/Orchestrator.AssetManagement.Cmdlets",
+      "type": "String"
     }
   },
   "variables": {},
   "resources": [
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1'.",
+      "type": "Microsoft.Automation/automationAccounts",
+      "name": "[parameters('automationAccounts_AutomationAccount1_name')]",
+      "apiVersion": "2015-10-31",
+      "location": "southcentralus",
+      "properties": {
+        "sku": "[parameters('automationAccounts_AutomationAccount1_sku')]"
+      },
+      "resources": [],
+      "dependsOn": []
+    },
     {
       "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/DC1'.",
       "type": "Microsoft.Compute/virtualMachines",
