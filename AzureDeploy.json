@@ -6,38 +6,6 @@
       "defaultValue": null,
       "type": "SecureString"
     },
-    "extensions_BGInfo_settings": {
-      "defaultValue": null,
-      "type": "SecureObject"
-    },
-    "extensions_BGInfo_protectedSettings": {
-      "defaultValue": null,
-      "type": "SecureObject"
-    },
-    "extensions_BGInfo_settings_1": {
-      "defaultValue": null,
-      "type": "SecureObject"
-    },
-    "extensions_BGInfo_protectedSettings_1": {
-      "defaultValue": null,
-      "type": "SecureObject"
-    },
-    "extensions_BGInfo_settings_2": {
-      "defaultValue": null,
-      "type": "SecureObject"
-    },
-    "extensions_BGInfo_protectedSettings_2": {
-      "defaultValue": null,
-      "type": "SecureObject"
-    },
-    "extensions_BGInfo_settings_3": {
-      "defaultValue": null,
-      "type": "SecureObject"
-    },
-    "extensions_BGInfo_protectedSettings_3": {
-      "defaultValue": null,
-      "type": "SecureObject"
-    },
     "virtualMachines_DC1_name": {
       "defaultValue": "DC1",
       "type": "String"
@@ -84,22 +52,6 @@
     },
     "storageAccounts_adteststoragejm_name": {
       "defaultValue": "adteststoragejm",
-      "type": "String"
-    },
-    "extensions_BGInfo_name": {
-      "defaultValue": "DC1/BGInfo",
-      "type": "String"
-    },
-    "extensions_BGInfo_name_1": {
-      "defaultValue": "DC2/BGInfo",
-      "type": "String"
-    },
-    "extensions_BGInfo_name_2": {
-      "defaultValue": "DC3/BGInfo",
-      "type": "String"
-    },
-    "extensions_BGInfo_name_3": {
-      "defaultValue": "Server1/BGInfo",
       "type": "String"
     }
   },
@@ -566,7 +518,7 @@
     {
       "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/DC1/extensions/BGInfo'.",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[parameters('extensions_BGInfo_name')]",
+      "name": "[concat(parameters('virtualMachines_DC1_name'),'/BGInfo')]",
       "apiVersion": "2016-03-30",
       "location": "westcentralus",
       "properties": {
@@ -574,8 +526,12 @@
         "type": "BGInfo",
         "typeHandlerVersion": "2.1",
         "autoUpgradeMinorVersion": true,
-        "settings": "[parameters('extensions_BGInfo_settings')]",
-        "protectedSettings": "[parameters('extensions_BGInfo_protectedSettings')]"
+        "settings": {
+          "Properties": []
+        },
+        "protectedSettings": {
+          "Properties": []
+        }
       },
       "resources": [],
       "dependsOn": [
@@ -585,7 +541,7 @@
     {
       "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/DC2/extensions/BGInfo'.",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[parameters('extensions_BGInfo_name_1')]",
+      "name": "[concat(parameters('virtualMachines_DC2_name'),'/BGInfo')]",
       "apiVersion": "2016-03-30",
       "location": "westcentralus",
       "properties": {
@@ -593,8 +549,12 @@
         "type": "BGInfo",
         "typeHandlerVersion": "2.1",
         "autoUpgradeMinorVersion": true,
-        "settings": "[parameters('extensions_BGInfo_settings_1')]",
-        "protectedSettings": "[parameters('extensions_BGInfo_protectedSettings_1')]"
+        "settings": {
+          "Properties": []
+        },
+        "protectedSettings": {
+          "Properties": []
+        }
       },
       "resources": [],
       "dependsOn": [
@@ -604,7 +564,7 @@
     {
       "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/DC3/extensions/BGInfo'.",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[parameters('extensions_BGInfo_name_2')]",
+      "name": "[concat(parameters('virtualMachines_DC3_name'),'/BGInfo')]",
       "apiVersion": "2016-03-30",
       "location": "westcentralus",
       "properties": {
@@ -612,8 +572,12 @@
         "type": "BGInfo",
         "typeHandlerVersion": "2.1",
         "autoUpgradeMinorVersion": true,
-        "settings": "[parameters('extensions_BGInfo_settings_2')]",
-        "protectedSettings": "[parameters('extensions_BGInfo_protectedSettings_2')]"
+        "settings": {
+          "Properties": []
+        },
+        "protectedSettings": {
+          "Properties": []
+        }
       },
       "resources": [],
       "dependsOn": [
@@ -623,7 +587,7 @@
     {
       "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/Server1/extensions/BGInfo'.",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[parameters('extensions_BGInfo_name_3')]",
+      "name": "[concat(parameters('virtualMachines_Server1_name'),'/BGInfo')]",
       "apiVersion": "2016-03-30",
       "location": "westcentralus",
       "properties": {
@@ -631,8 +595,12 @@
         "type": "BGInfo",
         "typeHandlerVersion": "2.1",
         "autoUpgradeMinorVersion": true,
-        "settings": "[parameters('extensions_BGInfo_settings_3')]",
-        "protectedSettings": "[parameters('extensions_BGInfo_protectedSettings_3')]"
+        "settings": {
+          "Properties": []
+        },
+        "protectedSettings": {
+          "Properties": []
+        }
       },
       "resources": [],
       "dependsOn": [
