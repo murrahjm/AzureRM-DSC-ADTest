@@ -4,5 +4,5 @@ $ResourceGroupName = 'ADTest'
 
 Login-AzureRmAccount
 Set-AzureRmContext -SubscriptionId $SubscriptionID
-New-AzureRmResourceGroup -name $ResourceGroupName -Location $Location
+If (!(get-azurermresourcegroup -name $resourcegroupname -ea SilentlyContinue)){New-AzureRmResourceGroup -name $ResourceGroupName -Location $Location}
 New-AzureRmResourceGroupDeployment -ResourceGroupName $ResourceGroupName -TemplateFile C:\scripts\GITHubRepos\AzureRM-DSC-ADTest\AzureDeploy.json

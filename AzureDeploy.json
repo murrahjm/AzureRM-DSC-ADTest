@@ -138,6 +138,231 @@
       "dependsOn": []
     },
     {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/Azure'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_Azure_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/Azure.Storage'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_Azure.Storage_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/AzureRM.Automation'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_AzureRM.Automation_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/AzureRM.Compute'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_AzureRM.Compute_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/AzureRM.Profile'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_AzureRM.Profile_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/AzureRM.Resources'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_AzureRM.Resources_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/AzureRM.Sql'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_AzureRM.Sql_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/AzureRM.Storage'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_AzureRM.Storage_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/Microsoft.PowerShell.Core'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_Microsoft.PowerShell.Core_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/Microsoft.PowerShell.Diagnostics'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_Microsoft.PowerShell.Diagnostics_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/Microsoft.PowerShell.Management'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_Microsoft.PowerShell.Management_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/Microsoft.PowerShell.Security'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_Microsoft.PowerShell.Security_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/Microsoft.PowerShell.Utility'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_Microsoft.PowerShell.Utility_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/Microsoft.WSMan.Management'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_Microsoft.WSMan.Management_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1/modules/Orchestrator.AssetManagement.Cmdlets'.",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "[parameters('modules_Orchestrator.AssetManagement.Cmdlets_name')]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_AutomationAccount1_name'))]"
+      ]
+    },
+    {
       "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/DC1'.",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[parameters('virtualMachines_DC1_name')]",
