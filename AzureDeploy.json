@@ -6,10 +6,6 @@
       "defaultValue": null,
       "type": "SecureString"
     },
-    "automationAccounts_AutomationAccount1_sku": {
-      "defaultValue": null,
-      "type": "SecureObject"
-    },
     "automationAccounts_AutomationAccount1_name": {
       "defaultValue": "AutomationAccount1",
       "type": "String"
@@ -123,7 +119,9 @@
       "type": "String"
     }
   },
-  "variables": {},
+  "variables": {
+    "sku": "Free"
+   },
   "resources": [
     {
       "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourcegroups/ADTest/providers/Microsoft.Automation/automationAccounts/AutomationAccount1'.",
@@ -132,7 +130,9 @@
       "apiVersion": "2015-10-31",
       "location": "southcentralus",
       "properties": {
-        "sku": "[parameters('automationAccounts_AutomationAccount1_sku')]"
+        "sku": {
+          "name": "[variables('sku')]" 
+        }
       },
       "resources": [],
       "dependsOn": []
