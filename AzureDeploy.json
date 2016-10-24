@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "virtualMachines_adminPassword": {
-      "defaultValue": "Password1234",
+      "defaultValue": null,
       "type": "SecureString"
     },
     "virtualMachines_DC1_name": {
