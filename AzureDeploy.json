@@ -1,0 +1,643 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualMachines_adminPassword": {
+      "defaultValue": null,
+      "type": "SecureString"
+    },
+    "extensions_BGInfo_settings": {
+      "defaultValue": null,
+      "type": "SecureObject"
+    },
+    "extensions_BGInfo_protectedSettings": {
+      "defaultValue": null,
+      "type": "SecureObject"
+    },
+    "extensions_BGInfo_settings_1": {
+      "defaultValue": null,
+      "type": "SecureObject"
+    },
+    "extensions_BGInfo_protectedSettings_1": {
+      "defaultValue": null,
+      "type": "SecureObject"
+    },
+    "extensions_BGInfo_settings_2": {
+      "defaultValue": null,
+      "type": "SecureObject"
+    },
+    "extensions_BGInfo_protectedSettings_2": {
+      "defaultValue": null,
+      "type": "SecureObject"
+    },
+    "extensions_BGInfo_settings_3": {
+      "defaultValue": null,
+      "type": "SecureObject"
+    },
+    "extensions_BGInfo_protectedSettings_3": {
+      "defaultValue": null,
+      "type": "SecureObject"
+    },
+    "virtualMachines_DC1_name": {
+      "defaultValue": "DC1",
+      "type": "String"
+    },
+    "virtualMachines_DC2_name": {
+      "defaultValue": "DC2",
+      "type": "String"
+    },
+    "virtualMachines_DC3_name": {
+      "defaultValue": "DC3",
+      "type": "String"
+    },
+    "virtualMachines_Server1_name": {
+      "defaultValue": "Server1",
+      "type": "String"
+    },
+    "networkInterfaces_nic1_name": {
+      "defaultValue": "nic1",
+      "type": "String"
+    },
+    "networkInterfaces_nic2_name": {
+      "defaultValue": "nic2",
+      "type": "String"
+    },
+    "networkInterfaces_nic3_name": {
+      "defaultValue": "nic3",
+      "type": "String"
+    },
+    "networkInterfaces_nic4_name": {
+      "defaultValue": "nic4",
+      "type": "String"
+    },
+    "networkSecurityGroups_NSG1_name": {
+      "defaultValue": "NSG1",
+      "type": "String"
+    },
+    "publicIPAddresses_PublicIP1_name": {
+      "defaultValue": "PublicIP1",
+      "type": "String"
+    },
+    "virtualNetworks_vnet1_name": {
+      "defaultValue": "vnet1",
+      "type": "String"
+    },
+    "storageAccounts_adteststoragejm_name": {
+      "defaultValue": "adteststoragejm",
+      "type": "String"
+    },
+    "extensions_BGInfo_name": {
+      "defaultValue": "DC1/BGInfo",
+      "type": "String"
+    },
+    "extensions_BGInfo_name_1": {
+      "defaultValue": "DC2/BGInfo",
+      "type": "String"
+    },
+    "extensions_BGInfo_name_2": {
+      "defaultValue": "DC3/BGInfo",
+      "type": "String"
+    },
+    "extensions_BGInfo_name_3": {
+      "defaultValue": "Server1/BGInfo",
+      "type": "String"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/DC1'.",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('virtualMachines_DC1_name')]",
+      "apiVersion": "2015-06-15",
+      "location": "westcentralus",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "Standard_A0"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[parameters('virtualMachines_DC1_name')]",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri": "[concat('https', '://', parameters('storageAccounts_adteststoragejm_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_DC1_name'),'.vhd'))]"
+            },
+            "caching": "ReadWrite"
+          },
+          "dataDisks": []
+        },
+        "osProfile": {
+          "computerName": "[parameters('virtualMachines_DC1_name')]",
+          "adminUsername": "adtestadmin",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          },
+          "secrets": [],
+          "adminPassword": "[parameters('virtualMachines_adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "properties": {
+                "primary": true
+              },
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic1_name'))]"
+            }
+          ]
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_adteststoragejm_name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/DC2'.",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('virtualMachines_DC2_name')]",
+      "apiVersion": "2015-06-15",
+      "location": "westcentralus",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "Standard_A0"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[parameters('virtualMachines_DC2_name')]",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri": "[concat('https', '://', parameters('storageAccounts_adteststoragejm_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_DC2_name'),'.vhd'))]"
+            },
+            "caching": "ReadWrite"
+          },
+          "dataDisks": []
+        },
+        "osProfile": {
+          "computerName": "[parameters('virtualMachines_DC2_name')]",
+          "adminUsername": "adtestadmin",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          },
+          "secrets": [],
+          "adminPassword": "[parameters('virtualMachines_adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "properties": {
+                "primary": true
+              },
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic2_name'))]"
+            }
+          ]
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_adteststoragejm_name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic2_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/DC3'.",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('virtualMachines_DC3_name')]",
+      "apiVersion": "2015-06-15",
+      "location": "westcentralus",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "Standard_A0"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[parameters('virtualMachines_DC3_name')]",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri": "[concat('https', '://', parameters('storageAccounts_adteststoragejm_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_DC3_name'),'.vhd'))]"
+            },
+            "caching": "ReadWrite"
+          },
+          "dataDisks": []
+        },
+        "osProfile": {
+          "computerName": "[parameters('virtualMachines_DC3_name')]",
+          "adminUsername": "adtestadmin",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          },
+          "secrets": [],
+          "adminPassword": "[parameters('virtualMachines_adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "properties": {
+                "primary": true
+              },
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic3_name'))]"
+            }
+          ]
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_adteststoragejm_name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic3_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/Server1'.",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('virtualMachines_Server1_name')]",
+      "apiVersion": "2015-06-15",
+      "location": "westcentralus",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "Standard_A0"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[parameters('virtualMachines_Server1_name')]",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri": "[concat('https', '://', parameters('storageAccounts_adteststoragejm_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_Server1_name'),'.vhd'))]"
+            },
+            "caching": "ReadWrite"
+          },
+          "dataDisks": []
+        },
+        "osProfile": {
+          "computerName": "[parameters('virtualMachines_Server1_name')]",
+          "adminUsername": "adtestadmin",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          },
+          "secrets": [],
+          "adminPassword": "[parameters('virtualMachines_adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "properties": {
+                "primary": true
+              },
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic4_name'))]"
+            }
+          ]
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_adteststoragejm_name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic4_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Network/networkInterfaces/nic1'.",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[parameters('networkInterfaces_nic1_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "westcentralus",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAddress": "192.168.1.4",
+              "privateIPAllocationMethod": "Static",
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name')), '/subnets/subnet1')]"
+              }
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false,
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG1_name'))]"
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Network/networkInterfaces/nic2'.",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[parameters('networkInterfaces_nic2_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "westcentralus",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAddress": "192.168.2.4",
+              "privateIPAllocationMethod": "Static",
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name')), '/subnets/Subnet2')]"
+              }
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false,
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG1_name'))]"
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Network/networkInterfaces/nic3'.",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[parameters('networkInterfaces_nic3_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "westcentralus",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAddress": "192.168.3.4",
+              "privateIPAllocationMethod": "Static",
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name')), '/subnets/Subnet3')]"
+              }
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false,
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG1_name'))]"
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Network/networkInterfaces/nic4'.",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[parameters('networkInterfaces_nic4_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "westcentralus",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAddress": "192.168.1.5",
+              "privateIPAllocationMethod": "Static",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_PublicIP1_name'))]"
+              },
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name')), '/subnets/subnet1')]"
+              }
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false,
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG1_name'))]"
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_PublicIP1_name'))]",
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Network/networkSecurityGroups/NSG1'.",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('networkSecurityGroups_NSG1_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "westcentralus",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "RDP-rule",
+            "properties": {
+              "description": "allow RDP",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "AllInternal",
+            "properties": {
+              "description": "allow all internal VM-VM communication",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "192.168.0.0/16",
+              "destinationAddressPrefix": "192.168.0.0/16",
+              "access": "Allow",
+              "priority": 200,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      },
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Network/publicIPAddresses/PublicIP1'.",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[parameters('publicIPAddresses_PublicIP1_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "westcentralus",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "idleTimeoutInMinutes": 4
+      },
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Network/virtualNetworks/vnet1'.",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[parameters('virtualNetworks_vnet1_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "westcentralus",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "192.168.0.0/16"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "subnet1",
+            "properties": {
+              "addressPrefix": "192.168.1.0/24"
+            }
+          },
+          {
+            "name": "Subnet2",
+            "properties": {
+              "addressPrefix": "192.168.2.0/24"
+            }
+          },
+          {
+            "name": "Subnet3",
+            "properties": {
+              "addressPrefix": "192.168.3.0/24"
+            }
+          }
+        ]
+      },
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/adtest/providers/Microsoft.Storage/storageAccounts/adteststoragejm'.",
+      "type": "Microsoft.Storage/storageAccounts",
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "kind": "Storage",
+      "name": "[parameters('storageAccounts_adteststoragejm_name')]",
+      "apiVersion": "2016-01-01",
+      "location": "westcentralus",
+      "tags": {},
+      "properties": {},
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/DC1/extensions/BGInfo'.",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[parameters('extensions_BGInfo_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "westcentralus",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "BGInfo",
+        "typeHandlerVersion": "2.1",
+        "autoUpgradeMinorVersion": true,
+        "settings": "[parameters('extensions_BGInfo_settings')]",
+        "protectedSettings": "[parameters('extensions_BGInfo_protectedSettings')]"
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_DC1_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/DC2/extensions/BGInfo'.",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[parameters('extensions_BGInfo_name_1')]",
+      "apiVersion": "2016-03-30",
+      "location": "westcentralus",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "BGInfo",
+        "typeHandlerVersion": "2.1",
+        "autoUpgradeMinorVersion": true,
+        "settings": "[parameters('extensions_BGInfo_settings_1')]",
+        "protectedSettings": "[parameters('extensions_BGInfo_protectedSettings_1')]"
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_DC2_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/DC3/extensions/BGInfo'.",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[parameters('extensions_BGInfo_name_2')]",
+      "apiVersion": "2016-03-30",
+      "location": "westcentralus",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "BGInfo",
+        "typeHandlerVersion": "2.1",
+        "autoUpgradeMinorVersion": true,
+        "settings": "[parameters('extensions_BGInfo_settings_2')]",
+        "protectedSettings": "[parameters('extensions_BGInfo_protectedSettings_2')]"
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_DC3_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/f46c6948-bc45-4a1b-ba71-6934538ed594/resourceGroups/ADTest/providers/Microsoft.Compute/virtualMachines/Server1/extensions/BGInfo'.",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[parameters('extensions_BGInfo_name_3')]",
+      "apiVersion": "2016-03-30",
+      "location": "westcentralus",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "BGInfo",
+        "typeHandlerVersion": "2.1",
+        "autoUpgradeMinorVersion": true,
+        "settings": "[parameters('extensions_BGInfo_settings_3')]",
+        "protectedSettings": "[parameters('extensions_BGInfo_protectedSettings_3')]"
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_Server1_name'))]"
+      ]
+    }
+  ]
+}
