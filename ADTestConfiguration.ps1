@@ -1,6 +1,6 @@
 configuration ADTestConfiguration {
-Import-DscResource xPSDesiredStateConfiguration
-Import-DscResource xActiveDirectory
+Import-DscResource -modulename xPSDesiredStateConfiguration -moduleversion 4.0.0.0
+Import-DscResource -modulename xActiveDirectory
     node $allnodes.NodeName {
 		$ForestData = $ConfigurationData.NonNodeData.Forests | ?{$_.domains.domainname -eq $Node.Domain}
 		$DomainData = $ForestData.Domains | ?{$_.domainname -eq $Node.Domain}
