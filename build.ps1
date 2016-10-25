@@ -16,5 +16,5 @@ function ConvertFrom-ConfigData
 }
 
 $automationaccount = get-azurermautomationaccount -ResourceGroupName $ResourceGroupName
-Import-AzureRmAutomationDscConfiguration -ResourceGroupName $ResourceGroupName -AutomationAccountName $automationaccount.AutomationAccountName  -SourcePath "$SourcePath\$ConfigurationName.ps1" -Published
-Start-AzureRmAutomationDscCompilationJob -ConfigurationName $ConfigurationName -ConfigurationData $(ConvertFrom-ConfigData "$SourcePath\ConfigurationData.psd1") -ResourceGroupName $ResourceGroupName -AutomationAccountName $automationaccount.AutomationAccountName
+Import-AzureRmAutomationDscConfiguration -ResourceGroupName $ResourceGroupName -AutomationAccountName $automationaccount.AutomationAccountName  -SourcePath "$SourcePath\$ConfigurationName.ps1" -Published -Force -verbose
+Start-AzureRmAutomationDscCompilationJob -ConfigurationName $ConfigurationName -ConfigurationData $(ConvertFrom-ConfigData "$SourcePath\ConfigurationData.psd1") -ResourceGroupName $ResourceGroupName -AutomationAccountName $automationaccount.AutomationAccountName -verbose
