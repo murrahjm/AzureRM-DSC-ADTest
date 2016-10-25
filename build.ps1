@@ -1,8 +1,9 @@
-$SubscriptionID = 'f46c6948-bc45-4a1b-ba71-6934538ed594'
-$Location = 'westcentralus'
-$ResourceGroupName = 'ADTest'
+Param(
+    $ResourceGroupName,
+    $ConfigurationName,
+    $SourcePath
+)
 
-Login-AzureRmAccount
-Set-AzureRmContext -SubscriptionId $SubscriptionID
-If (!(get-azurermresourcegroup -name $resourcegroupname -ea SilentlyContinue)){New-AzureRmResourceGroup -name $ResourceGroupName -Location $Location}
-New-AzureRmResourceGroupDeployment -ResourceGroupName $ResourceGroupName -TemplateFile C:\scripts\GITHubRepos\AzureRM-DSC-ADTest\AzureDeploy.json
+$automationaccount = get-azurermautomationaccount -ResourceGroupName $ResourceGroupName
+Import-AzureRmAutomationDscConfiguration -ResourceGroupName $ResourceGroupName -AutomationAccountName $automationaccount.AutomationAccountName  -SourcePath "$SourcePath$ConfigurationName.ps1" -Published
+Start-AzureRmAutomationDscCompilationJob -ConfigurationName $ConfigurationName -ConfigurationData $(ConvertFrom-ConfigData "$SourcePath`ConfigurationData.psd1") -ResourceGroupName $ResourceGroupName -AutomationAccountName $automationaccount.AutomationAccountName
