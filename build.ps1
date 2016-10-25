@@ -1,6 +1,7 @@
 Param(
     $ResourceGroupName,
-    $ConfigurationName
+    $ConfigurationName,
+    $SourcePath
 )
 
 function ConvertFrom-ConfigData
@@ -13,14 +14,7 @@ function ConvertFrom-ConfigData
     )
     return $data
 }
-get-location
-get-item -path .
-get-childitem -path .
-
-write-output "resourcegroupname = $resourcegroupname"
-write-output "configurationname = $ConfigurationName"
-#write-output "sourceroot = $sourceroot"
 
 $automationaccount = get-azurermautomationaccount -ResourceGroupName $ResourceGroupName
-Import-AzureRmAutomationDscConfiguration -ResourceGroupName $ResourceGroupName -AutomationAccountName $automationaccount.AutomationAccountName  -SourcePath ".\$ConfigurationName.ps1" -Published
-Start-AzureRmAutomationDscCompilationJob -ConfigurationName $ConfigurationName -ConfigurationData $(ConvertFrom-ConfigData ".\ConfigurationData.psd1") -ResourceGroupName $ResourceGroupName -AutomationAccountName $automationaccount.AutomationAccountName
+Import-AzureRmAutomationDscConfiguration -ResourceGroupName $ResourceGroupName -AutomationAccountName $automationaccount.AutomationAccountName  -SourcePath "$SourcePath\$ConfigurationName.ps1" -Published
+Start-AzureRmAutomationDscCompilationJob -ConfigurationName $ConfigurationName -ConfigurationData $(ConvertFrom-ConfigData "$SourcePath\ConfigurationData.psd1") -ResourceGroupName $ResourceGroupName -AutomationAccountName $automationaccount.AutomationAccountName
