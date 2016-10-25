@@ -30,11 +30,11 @@ Import-DscResource -modulename xActiveDirectory
 			}
 		}
 			WindowsFeature SNMPService {
-				Ensure = 'Present'
+				Ensure = 'Absent'
 				Name = 'SNMP-Service'
 			}
 			WindowsFeature SNMPTools {
-				Ensure = 'Present'
+				Ensure = 'Absent'
 				Name = 'RSAT-SNMP'
 			}
 			If (($Node.domain -eq $ForestData.ForestName) -and ($Node.NodeName -eq $DomainData.PDCEmulator)){

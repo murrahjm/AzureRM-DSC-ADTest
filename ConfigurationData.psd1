@@ -16,7 +16,7 @@
 			NodeName = 'DC3.testdomain.local'
 			Domain = 'testdomain.local'
 			Site = 'Site3'
-			Functions = @('DomainController')
+			Functions = @('DomainController','backup')
 			},
 		@{
 			NodeName = 'Server1.testdomain.local'
