@@ -9,10 +9,6 @@ $ResourceGroup = Get-AzureRmResourceGroup -Name $ResourceGroupName
 $StorageAccount = Get-AzureRmStorageAccount
 
 Describe 'ARM Template validation tests'{
-    It 'verifies Resourcegroup creation'{
-        $ResourceGroup.ResourceGroupName | should be $ResourceGroupName             
-        $ResourceGroup.ProvisioningState | should be 'Succeeded'
-    }
     It 'verifies virtual machine creation'{
         $(Get-azurermVM -ResourceGroupName $ResourceGroupName).Count -eq $($ARMTemplateData.Resources.where{$_.Type -eq 'Microsoft.Compute/virtualMachines'}).count | should be $true
     }

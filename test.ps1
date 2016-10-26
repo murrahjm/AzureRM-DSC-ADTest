@@ -2,7 +2,8 @@
 #below script found at URL https://writeabout.net/2016/01/02/run-pester-tests-in-github-with-vsts-vso-build-badge/
 param(
     [string]$SourceDir = $env:BUILD_SOURCESDIRECTORY,
-    [string]$TempDir = $env:TEMP
+    [string]$TempDir = $env:TEMP,
+    [String]$TestName
 )
 $ErrorActionPreference = 'Stop'
  
@@ -22,6 +23,6 @@ if (-not(Test-Path $modulePath)) {
  
 Import-Module $modulePath -DisableNameChecking
  
-$outputFile = Join-Path $SourceDir 'TEST-pester.xml'
+$outputFile = "$SourceDir\$TestName-pester.xml"
  
-Invoke-Pester -Path $SourceDir -PassThru -OutputFile $outputFile -OutputFormat NUnitXml -EnableExit
+Invoke-Pester -Script "$SourceDir\$TestName.tests.ps1" -PassThru -OutputFile $outputFile -OutputFormat NUnitXml -EnableExit

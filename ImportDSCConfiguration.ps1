@@ -1,7 +1,7 @@
 Param(
     $ResourceGroupName,
     $ConfigurationName,
-    $SourcePath
+    $SourcePath = $env:BUILD_SOURCESDIRECTORY
 )
 
 function ConvertFrom-ConfigData
