@@ -14,6 +14,6 @@ Describe 'ARM Template validation tests'{
         $ResourceGroup.ProvisioningState | should be 'Succeeded'
     }
     It 'verifies virtual machine creation'{
-        $(Get-azurermvirtualmachine).Count -eq $($ARMTemplateData.Resources.where{$_.Type -eq 'Microsoft.Compute/virtualMachines'}).count | should be $true
+        $(Get-azurermVM -ResourceGroupName $ResourceGroupName).Count -eq $($ARMTemplateData.Resources.where{$_.Type -eq 'Microsoft.Compute/virtualMachines'}).count | should be $true
     }
 }
