@@ -1,5 +1,5 @@
 #pester test to validate resource group exists before continuing to next build step
-Param($ResourceGroupname)
+Param($ResourceGroupname='ADTest')
 
 Describe "Resource Group Test"{
     It 'verifies Resourcegroup creation'{
