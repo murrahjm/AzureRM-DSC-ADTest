@@ -1,7 +1,10 @@
 #Pester tests to validate environment after ARM templates have been deployed.
-param($ResourceGroupName,$SourcePath)
+param(
+    $ResourceGroupName = 'ADTest',
+    $SourceDir = $env:BUILD_SOURCESDIRECTORY
+)
 
-$ARMTemplateData = get-content "$SourcePath\AzureDeploy.json" | convertfrom-json
+$ARMTemplateData = get-content "$SourceDir\AzureDeploy.json" | convertfrom-json
 $ResourceGroup = Get-AzureRmResourceGroup -Name $ResourceGroupName
 $StorageAccount = Get-AzureRmStorageAccount
 
