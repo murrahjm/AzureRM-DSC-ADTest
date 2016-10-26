@@ -1,0 +1,860 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "resourceGroupName" : {
+          "Type": "String",
+          "defaultValue": null
+      },
+      "virtualMachines_adminPassword" : {
+          "Type": "SecureString",
+          "defaultValue": null
+      }
+  },
+  "variables": {
+      "location": "southcentralus",
+      "virtualMachines_AdminUsername": "[concat(parameters('resourceGroupName'),Admin)]",
+      "virtualMachines_vmSize": "Standard_A0"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Automation/automationAccounts",
+      "name": "[concat('azureautomation_',parameters('resourceGroupName'))]",
+      "apiVersion": "2015-10-31",
+      "location": "[variables('location')]",
+      "properties": {
+        "sku": "Free"
+      },
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "DC1",
+      "apiVersion": "2015-06-15",
+      "location": "[variables('location')]",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "variables('virtualMachines_vmSize')"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "DC1",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/',DC1,'.vhd'))]"
+            },
+            "caching": "ReadWrite"
+          },
+          "dataDisks": []
+        },
+        "osProfile": {
+          "computerName": "DC1",
+          "adminUsername": "variables('virtualMachines_AdminUsername')",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          },
+          "secrets": [],
+          "adminPassword": "[parameters('virtualMachines_adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "properties": {
+                "primary": true
+              },
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'nic1')]"
+            }
+          ]
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', 'ADTestStorage')]",
+        "[resourceId('Microsoft.Network/networkInterfaces','nic1')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "DC2",
+      "apiVersion": "2015-06-15",
+      "location": "variables('location')",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "variables('virtualMachines_vmSize')"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "DC2",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/',DC2,'.vhd'))]"
+            },
+            "caching": "ReadWrite"
+          },
+          "dataDisks": []
+        },
+        "osProfile": {
+          "computerName": "DC2",
+          "adminUsername": "variables('virtualMachines_AdminUsername')",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          },
+          "secrets": [],
+          "adminPassword": "[parameters('virtualMachines_adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "properties": {
+                "primary": true
+              },
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'nic2')]"
+            }
+          ]
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', 'ADTestStorage')]",
+        "[resourceId('Microsoft.Network/networkInterfaces', 'nic2')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "DC3",
+      "apiVersion": "2015-06-15",
+      "location": "variables('location')",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "variables('virtualMachines_vmSize')"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "DC3",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/', DC3,'.vhd'))]"
+            },
+            "caching": "ReadWrite"
+          },
+          "dataDisks": []
+        },
+        "osProfile": {
+          "computerName": "DC3",
+          "adminUsername": "variables('virtualMachines_AdminUsername')",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          },
+          "secrets": [],
+          "adminPassword": "[parameters('virtualMachines_adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "properties": {
+                "primary": true
+              },
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'nic3')]"
+            }
+          ]
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', 'ADTestStorage')]",
+        "[resourceId('Microsoft.Network/networkInterfaces', 'nic3')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "Server1",
+      "apiVersion": "2015-06-15",
+      "location": "variables('location')",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "variables('virtualMachines_vmSize')"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "Server1",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/', Server1,'.vhd'))]"
+            },
+            "caching": "ReadWrite"
+          },
+          "dataDisks": []
+        },
+        "osProfile": {
+          "computerName": "Server1",
+          "adminUsername": "variables('virtualMachines_AdminUsername')",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          },
+          "secrets": [],
+          "adminPassword": "[parameters('virtualMachines_adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "properties": {
+                "primary": true
+              },
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'nic4')]"
+            }
+          ]
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', 'ADTestStorage')]",
+        "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic4_name'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "NIC1",
+      "apiVersion": "2016-03-30",
+      "location": "variables('location')",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAddress": "192.168.1.4",
+              "privateIPAllocationMethod": "Static",
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'Vnet1'), '/subnets/subnet1')]"
+              }
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false,
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'NSG1')]"
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNet1')]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', 'VNet1')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "Nic2",
+      "apiVersion": "2016-03-30",
+      "location": "variables('location')",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAddress": "192.168.2.4",
+              "privateIPAllocationMethod": "Static",
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'vnet1'), '/subnets/Subnet2')]"
+              }
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false,
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'nsg1')]"
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNet1')]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', 'NSG1')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[parameters('networkInterfaces_nic3",
+      "apiVersion": "2016-03-30",
+      "location": "variables('location')",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAddress": "192.168.3.4",
+              "privateIPAllocationMethod": "Static",
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'VNet1'), '/subnets/Subnet3')]"
+              }
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false,
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'NSG1')]"
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNet1')]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', 'NSG1')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[parameters('networkInterfaces_nic4",
+      "apiVersion": "2016-03-30",
+      "location": "variables('location')",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAddress": "192.168.1.5",
+              "privateIPAllocationMethod": "Static",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'PublicIP1')]"
+              },
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'VNet1'), '/subnets/subnet1')]"
+              }
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false,
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'NSG1')]"
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', 'PublicIP1')]",
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNet1')]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', 'NSG1')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "['NSG1']",
+      "apiVersion": "2016-03-30",
+      "location": "variables('location')",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "RDP-rule",
+            "properties": {
+              "description": "allow RDP",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "AllInternal",
+            "properties": {
+              "description": "allow all internal VM-VM communication",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "192.168.0.0/16",
+              "destinationAddressPrefix": "192.168.0.0/16",
+              "access": "Allow",
+              "priority": 200,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      },
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "'PublicIP1'",
+      "apiVersion": "2016-03-30",
+      "location": "variables('location')",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "idleTimeoutInMinutes": 4
+      },
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "['VNet1']",
+      "apiVersion": "2016-03-30",
+      "location": "variables('location')",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "192.168.0.0/16"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "subnet1",
+            "properties": {
+              "addressPrefix": "192.168.1.0/24"
+            }
+          },
+          {
+            "name": "Subnet2",
+            "properties": {
+              "addressPrefix": "192.168.2.0/24"
+            }
+          },
+          {
+            "name": "Subnet3",
+            "properties": {
+              "addressPrefix": "192.168.3.0/24"
+            }
+          }
+        ]
+      },
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "kind": "Storage",
+      "name": "ADTestStorage",
+      "apiVersion": "2016-01-01",
+      "location": "variables('location')",
+      "tags": {},
+      "properties": {},
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Azure",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Azure.Storage",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Automation",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Compute",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Profile",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Resources",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Sql",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Storage",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Microsoft.PowerShell.Core",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Microsoft.PowerShell.Diagnostics",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Microsoft.PowerShell.Management",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Microsoft.PowerShell.Security",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "modules_Microsoft.PowerShell.Utility]",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Microsoft.WSMan.Management",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Orchestrator.AssetManagement.Cmdlets",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": true,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Pester",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": false,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "xActiveDirectory",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": false,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "xPSDesiredStateConfiguration",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "isGlobal": false,
+        "version": null,
+        "sizeInBytes": 0
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/certificates",
+      "name": "AzureClassicRunAsCertificate",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "description": "This certificate is used to authenticate with Azure so that you can manage Azure classic resources from runbooks. For details on this certificate, or to manage it, go to this account’s Settings.  For example usage, see the tutorial runbook in this account.",
+        "base64Value": "AzureClassicRunAsCertificate_base64Value')]"
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/certificates",
+      "name": "AzureRunAsCertificate",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "description": "This certificate is used to authenticate with the service principal that was automatically created for this account. For details on this service principal and certificate, or to recreate them, go to this account’s Settings. For example usage, see the tutorial runbook in this account.",
+        "base64Value": "AzureRunAsCertificate_base64Value')]"
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/connections",
+      "name": "AzureClassicRunAsConnection",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "description": null,
+        "fieldDefinitionValues": null,
+        "connectionType": {
+          "name": "AzureClassicCertificate"
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/connections",
+      "name": "AzureRunAsConnection",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "description": null,
+        "fieldDefinitionValues": null,
+        "connectionType": {
+          "name": "AzureServicePrincipal"
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "BGInfo",
+      "apiVersion": "2016-03-30",
+      "location": "variables('location')",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "BGInfo",
+        "typeHandlerVersion": "2.1",
+        "autoUpgradeMinorVersion": true,
+        "settings": {},
+        "protectedSettings": {}
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', DC1)]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "BGInfo",
+      "apiVersion": "2016-03-30",
+      "location": "variables('location')",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "BGInfo",
+        "typeHandlerVersion": "2.1",
+        "autoUpgradeMinorVersion": true,
+        "settings": {},
+        "protectedSettings": {}
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', DC2)]"
+      ]
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', DC3)]"
+      ],
+      "location": "variables('location')",
+      "name": "BGInfo",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "BGInfo",
+        "typeHandlerVersion": "2.1",
+        "autoUpgradeMinorVersion": true,
+        "settings": {},
+        "protectedSettings": {}
+      },
+      "resources": [],
+      "type": "Microsoft.Compute/virtualMachines/extensions"
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', Server1)]"
+      ],
+      "location": "variables('location')",
+      "name": "BGInfo",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "BGInfo",
+        "typeHandlerVersion": "2.1",
+        "autoUpgradeMinorVersion": true,
+        "settings": {},
+        "protectedSettings": {}
+      },
+      "resources": [],
+      "type": "Microsoft.Compute/virtualMachines/extensions"
+    }
+  ]
+}
