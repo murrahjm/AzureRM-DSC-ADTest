@@ -481,7 +481,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -495,7 +495,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -509,7 +509,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -523,7 +523,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -537,7 +537,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -551,7 +551,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -565,7 +565,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -579,7 +579,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -593,7 +593,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -607,7 +607,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -621,7 +621,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -635,7 +635,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -649,7 +649,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -663,7 +663,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -677,7 +677,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -691,7 +691,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -705,7 +705,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -719,7 +719,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -732,7 +732,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -745,7 +745,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -761,7 +761,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
@@ -777,7 +777,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',resourceGroup().Name)])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', concat('azureautomation_',resourceGroup().Name))]"
       ]
     },
     {
