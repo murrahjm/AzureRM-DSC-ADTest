@@ -61,7 +61,7 @@
             "name": "[variables('virtualMachines_vm1Name')]",
             "createOption": "FromImage",
             "vhd": {
-              "uri":  "[concat('https', '://', variables('storageAccuontName'), '.blob.core.windows.net', '/vhds/', variables('virtualMachines_vm1Name'), '.vhd')]"
+              "uri":  "[concat('https', '://', variables('storageAccountName'), '.blob.core.windows.net', '/vhds/', variables('virtualMachines_vm1Name'), '.vhd')]"
             },
             "caching": "ReadWrite"
           },
@@ -114,7 +114,7 @@
             "name": "[variables('virtualMachines_vm2Name')]",
             "createOption": "FromImage",
             "vhd": {
-              "uri":  "[concat('https', '://', variables('storageAccuontName'), '.blob.core.windows.net', '/vhds/', variables('virtualMachines_vm2Name'), '.vhd')]"
+              "uri":  "[concat('https', '://', variables('storageAccountName'), '.blob.core.windows.net', '/vhds/', variables('virtualMachines_vm2Name'), '.vhd')]"
             },
             "caching": "ReadWrite"
           },
@@ -167,7 +167,7 @@
             "name": "[variables('virtualMachines_vm3Name')]",
             "createOption": "FromImage",
             "vhd": {
-              "uri":  "[concat('https', '://', variables('storageAccuontName'), '.blob.core.windows.net', '/vhds/', variables('virtualMachines_vm3Name'), '.vhd')]"
+              "uri":  "[concat('https', '://', variables('storageAccountName'), '.blob.core.windows.net', '/vhds/', variables('virtualMachines_vm3Name'), '.vhd')]"
             },
             "caching": "ReadWrite"
           },
@@ -220,7 +220,7 @@
             "name": "[variables('virtualMachines_vm4Name')]",
             "createOption": "FromImage",
             "vhd": {
-              "uri":  "[concat('https', '://', variables('storageAccuontName'), '.blob.core.windows.net', '/vhds/', variables('virtualMachines_vm4Name'), '.vhd')]"
+              "uri":  "[concat('https', '://', variables('storageAccountName'), '.blob.core.windows.net', '/vhds/', variables('virtualMachines_vm4Name'), '.vhd')]"
             },
             "caching": "ReadWrite"
           },
