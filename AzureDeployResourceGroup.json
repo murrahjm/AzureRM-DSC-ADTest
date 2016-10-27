@@ -233,7 +233,7 @@
       "resources": [],
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts', 'ADTestStorage')]",
-        "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic4_name'))]"
+        "[resourceId('Microsoft.Network/networkInterfaces', 'nic4'))]"
       ]
     },
     {
