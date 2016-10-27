@@ -492,9 +492,9 @@
       "name": "AzureRM.Automation",
       "apiVersion": "2015-10-31",
       "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
+        "contentLink": {
+          "uri": "https://devopsgallerystorage.blob.core.windows.net/packages/azurerm.automation.1.0.11.nupkg"
+        }
       },
       "resources": [],
       "dependsOn": [
