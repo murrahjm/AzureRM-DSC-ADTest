@@ -488,33 +488,6 @@
       "dependsOn": []
     },
     {
-      "type": "modules",
-      "name": "Azure",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "modules",
-      "name": "Azure.Storage",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
     {
       "type": "modules",
       "name": "AzureRM.Automation",
