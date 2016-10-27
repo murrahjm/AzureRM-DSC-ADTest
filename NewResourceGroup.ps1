@@ -6,4 +6,3 @@ If (!(Get-AzureRmResourceGroup $ResourceGroupName -ea 'SilentlyContinue')){
     New-AzureRmResourceGroup $ResourceGroupName
 }
 
-get-variable
