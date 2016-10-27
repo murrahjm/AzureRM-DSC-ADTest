@@ -93,11 +93,16 @@
         }
     },
     "variables": {
+        "vm1Name" : "DC1",
+        "vm2Name" : "DC2",
+        "vm3Name" : "DC3",
+        "vm4Name" : "Server1",
+        "vmDomain" : "testdomain.local"
     },
     "resources": [
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "DC1/Microsoft.Powershell.DSC",
+            "name":  "[concat(variables('vm1Name'), '/Microsoft.Powershell.DSC')]",
             "apiVersion": "2015-06-15",
             "location": "variables('location')",
             "properties": {
@@ -130,7 +135,7 @@
                         },
                         {
                             "Name": "NodeConfigurationName",
-                            "Value": "[parameters('nodeConfigurationName')]",
+                            "Value": "concat(parameters('nodeConfigurationName'), '.', variables('vm1Name'), '.', variables('vmdomain'))",
                             "TypeName": "System.String"
                         },
                         {
@@ -174,7 +179,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "DC2/Microsoft.Powershell.DSC",
+            "name":  "[concat(variables('vm2Name'), '/Microsoft.Powershell.DSC')]",
             "apiVersion": "2015-06-15",
             "location": "variables('location')",
             "properties": {
@@ -207,7 +212,7 @@
                         },
                         {
                             "Name": "NodeConfigurationName",
-                            "Value": "[parameters('nodeConfigurationName')]",
+                            "Value": "concat(parameters('nodeConfigurationName'), '.', variables('vm2Name'), '.', variables('vmdomain'))",
                             "TypeName": "System.String"
                         },
                         {
@@ -251,7 +256,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "DC3/Microsoft.Powershell.DSC",
+            "name":  "[concat(variables('vm3Name'), '/Microsoft.Powershell.DSC')]",
             "apiVersion": "2015-06-15",
             "location": "variables('location')",
             "properties": {
@@ -284,7 +289,7 @@
                         },
                         {
                             "Name": "NodeConfigurationName",
-                            "Value": "[parameters('nodeConfigurationName')]",
+                            "Value": "concat(parameters('nodeConfigurationName'), '.', variables('vm3Name'), '.', variables('vmdomain'))",
                             "TypeName": "System.String"
                         },
                         {
@@ -328,7 +333,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "Server1/Microsoft.Powershell.DSC",
+            "name":  "[concat(variables('vm4Name'), '/Microsoft.Powershell.DSC')]",
             "apiVersion": "2015-06-15",
             "location": "variables('location')",
             "properties": {
@@ -361,7 +366,7 @@
                         },
                         {
                             "Name": "NodeConfigurationName",
-                            "Value": "[parameters('nodeConfigurationName')]",
+                            "Value": "concat(parameters('nodeConfigurationName'), '.', variables('vm4Name'), '.', variables('vmdomain'))",
                             "TypeName": "System.String"
                         },
                         {

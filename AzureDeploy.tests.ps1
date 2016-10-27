@@ -2,13 +2,12 @@
 param(
     $SourceDir = $env:BUILD_SOURCESDIRECTORY
 )
-get-variable
-throw
+
+Describe 'ARM Template validation tests'{
 $ARMTemplateData = get-content "$SourceDir\AzureDeploy.json" | convertfrom-json
 $ResourceGroup = Get-AzureRmResourceGroup -Name $ResourceGroupName
 $StorageAccount = Get-AzureRmStorageAccount
 
-Describe 'ARM Template validation tests'{
     It 'verifies virtual machine creation'{
         $(Get-azurermVM -ResourceGroupName $ResourceGroupName).Count -eq $($ARMTemplateData.Resources.where{$_.Type -eq 'Microsoft.Compute/virtualMachines'}).count | should be $true
     }
