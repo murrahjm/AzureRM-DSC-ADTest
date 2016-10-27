@@ -488,7 +488,7 @@
       "dependsOn": []
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "AzureRM.Automation",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -502,7 +502,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "AzureRM.Compute",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -516,7 +516,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "AzureRM.Profile",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -530,7 +530,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "AzureRM.Resources",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -544,7 +544,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "AzureRM.Sql",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -558,7 +558,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "AzureRM.Storage",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -572,7 +572,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "Microsoft.PowerShell.Core",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -586,7 +586,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "Microsoft.PowerShell.Diagnostics",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -600,7 +600,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "Microsoft.PowerShell.Management",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -614,7 +614,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "Microsoft.PowerShell.Security",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -628,7 +628,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "modules_Microsoft.PowerShell.Utility]",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -642,7 +642,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "Microsoft.WSMan.Management",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -656,7 +656,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "Orchestrator.AssetManagement.Cmdlets",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -670,7 +670,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "Pester",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -684,7 +684,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "xActiveDirectory",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -698,7 +698,7 @@
       ]
     },
     {
-      "type": "modules",
+      "type": "Modules",
       "name": "xPSDesiredStateConfiguration",
       "apiVersion": "2015-10-31",
       "properties": {
