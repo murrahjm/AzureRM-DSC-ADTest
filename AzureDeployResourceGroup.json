@@ -44,7 +44,7 @@
             "name": "DC1",
             "createOption": "FromImage",
             "vhd": {
-              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/',DC1,'.vhd'))]"
+              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/','DC1','.vhd'))]"
             },
             "caching": "ReadWrite"
           },
@@ -97,7 +97,7 @@
             "name": "DC2",
             "createOption": "FromImage",
             "vhd": {
-              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/',DC2,'.vhd'))]"
+              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/', 'DC2','.vhd'))]"
             },
             "caching": "ReadWrite"
           },
@@ -150,7 +150,7 @@
             "name": "DC3",
             "createOption": "FromImage",
             "vhd": {
-              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/', DC3,'.vhd'))]"
+              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/', 'DC3','.vhd'))]"
             },
             "caching": "ReadWrite"
           },
@@ -203,7 +203,7 @@
             "name": "Server1",
             "createOption": "FromImage",
             "vhd": {
-              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/', Server1,'.vhd'))]"
+              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/', 'Server1','.vhd'))]"
             },
             "caching": "ReadWrite"
           },
