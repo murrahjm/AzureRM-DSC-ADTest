@@ -17,7 +17,7 @@
       }
   },
   "variables": {
-    "azureAutomation_accountName": "[concat('azureautomation_',resourceGroup().Name)]",
+    "azureAutomation_accountName": "[concat('azureautomation-',resourceGroup().Name)]",
     "storageAccountName":  "[concat('Storage_',resourceGroup().Name)]",
     "virtualMachines_vm1Name": "DC1",
     "virtualMachines_vm2Name": "DC2",
