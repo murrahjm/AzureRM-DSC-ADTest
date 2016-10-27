@@ -5,9 +5,6 @@
         "virtualMachines_adminUsername": {
             "value": "[concat(resourceGroup().Name,'Admin')]" 
         },
-        "location": {
-            "value": "[resourceGroup().location]"
-        },
         "virtualmachines_vmSize": {
             "value": "Standard_A0"
         }

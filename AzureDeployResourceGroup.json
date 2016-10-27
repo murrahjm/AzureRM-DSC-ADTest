@@ -9,9 +9,6 @@
       "virtualMachines_AdminUsername": {
           "Type": "String"
       },
-      "location": {
-          "Type": "String"
-      },
       "virtualMachines_vmSize": {
           "Type": "String"
       }
@@ -33,7 +30,7 @@
       "type": "Microsoft.Automation/automationAccounts",
       "name": "[variables('azureAutomation_accountName')]",
       "apiVersion": "2015-10-31",
-      "location": "[parameters('location')]",
+      "location": "[resourceGroup().location]",
       "properties": {
         "sku": "Free"
       },
@@ -45,7 +42,7 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('virtualMachines_vm1Name')]",
       "apiVersion": "2015-06-15",
-      "location": "[parameters('location')]",
+      "location": "[resourceGroup().location]",
       "properties": {
         "hardwareProfile": {
           "vmSize": "parameters('virtualMachines_vmSize')"
@@ -98,7 +95,7 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('virtualMachines_vm2Name')]",
       "apiVersion": "2015-06-15",
-      "location": "[parameters('location')]",
+      "location": "[resourceGroup().location]",
       "properties": {
         "hardwareProfile": {
           "vmSize": "parameters('virtualMachines_vmSize')"
@@ -151,7 +148,7 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('virtualMachines_vm3Name')]",
       "apiVersion": "2015-06-15",
-      "location": "[parameters('location')]",
+      "location": "[resourceGroup().location]",
       "properties": {
         "hardwareProfile": {
           "vmSize": "parameters('virtualMachines_vmSize')"
@@ -204,7 +201,7 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('virtualMachines_vm4Name')]",
       "apiVersion": "2015-06-15",
-      "location": "[parameters('location')]",
+      "location": "[resourceGroup().location]",
       "properties": {
         "hardwareProfile": {
           "vmSize": "parameters('virtualMachines_vmSize')"
@@ -257,7 +254,7 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('networkInterfaces_nic1Name')]",
       "apiVersion": "2016-03-30",
-      "location": "parameters('location')",
+      "location": "[resourceGroup().location]",
       "properties": {
         "ipConfigurations": [
           {
@@ -282,14 +279,14 @@
       "resources": [],
       "dependsOn": [
         "[resourceId('Microsoft.Network/virtualNetworks', 'VNet1')]",
-        "[resourceId('Microsoft.Network/networkSecurityGroups', 'VNet1')]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', 'NSG1')]"
       ]
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('networkInterfaces_nic2Name')]",
       "apiVersion": "2016-03-30",
-      "location": "parameters('location')",
+      "location": "[resourceGroup().location]",
       "properties": {
         "ipConfigurations": [
           {
@@ -321,7 +318,7 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('networkInterfaces_nic3Name')]",
       "apiVersion": "2016-03-30",
-      "location": "parameters('location')",
+      "location": "[resourceGroup().location]",
       "properties": {
         "ipConfigurations": [
           {
@@ -353,7 +350,7 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('networkInterfaces_nic4Name')]",
       "apiVersion": "2016-03-30",
-      "location": "parameters('location')",
+      "location": "[resourceGroup().location]",
       "properties": {
         "ipConfigurations": [
           {
@@ -389,7 +386,7 @@
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "NSG1",
       "apiVersion": "2016-03-30",
-      "location": "parameters('location')",
+      "location": "[resourceGroup().location]",
       "properties": {
         "securityRules": [
          {
@@ -429,7 +426,7 @@
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "PublicIP1",
       "apiVersion": "2016-03-30",
-      "location": "parameters('location')",
+      "location": "[resourceGroup().location]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "idleTimeoutInMinutes": 4
@@ -441,7 +438,7 @@
       "type": "Microsoft.Network/virtualNetworks",
       "name": "VNet1",
       "apiVersion": "2016-03-30",
-      "location": "parameters('location')",
+      "location": "[resourceGroup().location]",
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -481,29 +478,28 @@
       "kind": "Storage",
       "name": "[variables('storageAccountName')]",
       "apiVersion": "2016-01-01",
-      "location": "parameters('location')",
+      "location": "[resourceGroup().location]",
       "tags": {},
       "properties": {},
       "resources": [],
       "dependsOn": []
     },
     {
-      "type": "Modules",
-      "name": "AzureRM.Automation",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Automation/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "contentLink": {
           "uri": "https://devopsgallerystorage.blob.core.windows.net/packages/azurerm.automation.1.0.11.nupkg"
         }
       },
-      "resources": [],
       "dependsOn": [
         "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
-      "type": "Modules",
-      "name": "AzureRM.Compute",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Compute/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -516,8 +512,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "AzureRM.Profile",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Profile/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -530,8 +526,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "AzureRM.Resources",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Resources/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -544,8 +540,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "AzureRM.Sql",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Sql/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -558,8 +554,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "AzureRM.Storage",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "AzureRM.Storage/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -572,8 +568,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "Microsoft.PowerShell.Core",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Microsoft.PowerShell.Core/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -586,8 +582,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "Microsoft.PowerShell.Diagnostics",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Microsoft.PowerShell.Diagnostics/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -600,8 +596,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "Microsoft.PowerShell.Management",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Microsoft.PowerShell.Management/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -614,8 +610,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "Microsoft.PowerShell.Security",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Microsoft.PowerShell.Security/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -628,8 +624,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "modules_Microsoft.PowerShell.Utility]",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Microsoft.PowerShell.Utility/modules]",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -642,8 +638,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "Microsoft.WSMan.Management",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Microsoft.WSMan.Management/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -656,8 +652,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "Orchestrator.AssetManagement.Cmdlets",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Orchestrator.AssetManagement.Cmdlets/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": true,
@@ -670,8 +666,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "Pester",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "Pester/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": false,
@@ -684,8 +680,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "xActiveDirectory",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "xActiveDirectory/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": false,
@@ -698,8 +694,8 @@
       ]
     },
     {
-      "type": "Modules",
-      "name": "xPSDesiredStateConfiguration",
+      "type": "Microsoft.Automation/automationAccounts/modules",
+      "name": "xPSDesiredStateConfiguration/modules",
       "apiVersion": "2015-10-31",
       "properties": {
         "isGlobal": false,
@@ -712,8 +708,8 @@
       ]
     },
     {
-      "type": "certificates",
-      "name": "AzureClassicRunAsCertificate",
+      "type": "Microsoft.Automation/automationAccounts/certificates",
+      "name": "AzureClassicRunAsCertificate/certificates",
       "apiVersion": "2015-10-31",
       "properties": {
         "description": "This certificate is used to authenticate with Azure so that you can manage Azure classic resources from runbooks. For details on this certificate, or to manage it, go to this account’s Settings.  For example usage, see the tutorial runbook in this account.",
@@ -725,8 +721,8 @@
       ]
     },
     {
-      "type": "certificates",
-      "name": "AzureRunAsCertificate",
+      "type": "Microsoft.Automation/automationAccounts/certificates",
+      "name": "AzureRunAsCertificate/certificates",
       "apiVersion": "2015-10-31",
       "properties": {
         "description": "This certificate is used to authenticate with the service principal that was automatically created for this account. For details on this service principal and certificate, or to recreate them, go to this account’s Settings. For example usage, see the tutorial runbook in this account.",
@@ -738,8 +734,8 @@
       ]
     },
     {
-      "type": "connections",
-      "name": "AzureClassicRunAsConnection",
+      "type": "Microsoft.Automation/automationAccounts/connections",
+      "name": "AzureClassicRunAsConnection/connections",
       "apiVersion": "2015-10-31",
       "properties": {
         "description": null,
@@ -754,8 +750,8 @@
       ]
     },
     {
-      "type": "connections",
-      "name": "AzureRunAsConnection",
+      "type": "Microsoft.Automation/automationAccounts/connections",
+      "name": "AzureRunAsConnection/connections",
       "apiVersion": "2015-10-31",
       "properties": {
         "description": null,
@@ -771,9 +767,9 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "BGInfo",
+      "name": "[concat(variables('virtualMachines_vm1Name'), '/BGInfo')]",
       "apiVersion": "2016-03-30",
-      "location": "parameters('location')",
+      "location": "[resourceGroup().location]",
       "properties": {
         "publisher": "Microsoft.Compute",
         "type": "BGInfo",
@@ -789,9 +785,9 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "BGInfo",
+      "name": "[concat(variables('virtualMachines_vm2Name'), '/BGInfo')]",
       "apiVersion": "2016-03-30",
-      "location": "parameters('location')",
+      "location": "[resourceGroup().location]",
       "properties": {
         "publisher": "Microsoft.Compute",
         "type": "BGInfo",
@@ -810,8 +806,8 @@
       "dependsOn": [
         "[resourceId('Microsoft.Compute/virtualMachines', variables('virtualMachines_vm3Name'))]"
       ],
-      "location": "parameters('location')",
-      "name": "BGInfo",
+      "location": "[resourceGroup().location]",
+      "name": "[concat(variables('virtualMachines_vm3Name'), '/BGInfo')]",
       "properties": {
         "publisher": "Microsoft.Compute",
         "type": "BGInfo",
@@ -828,8 +824,8 @@
       "dependsOn": [
         "[resourceId('Microsoft.Compute/virtualMachines', variables('virtualMachines_vm4Name'))]"
       ],
-      "location": "parameters('location')",
-      "name": "BGInfo",
+      "location": "[resourceGroup().location]",
+      "name": "[concat(variables('virtualMachines_vm4Name'), '/BGInfo')]",
       "properties": {
         "publisher": "Microsoft.Compute",
         "type": "BGInfo",
