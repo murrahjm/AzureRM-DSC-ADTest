@@ -2,10 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-      "resourceGroupName" : {
-          "Type": "String",
-          "defaultValue": null
-      },
       "virtualMachines_adminPassword" : {
           "Type": "SecureString",
           "defaultValue": null
@@ -13,13 +9,13 @@
   },
   "variables": {
       "location": "southcentralus",
-      "virtualMachines_AdminUsername": "[concat(parameters('resourceGroupName'),Admin)]",
+      "virtualMachines_AdminUsername": "[concat([resourceGroup().Name],Admin)]",
       "virtualMachines_vmSize": "Standard_A0"
   },
   "resources": [
     {
       "type": "Microsoft.Automation/automationAccounts",
-      "name": "[concat('azureautomation_',parameters('resourceGroupName'))]",
+      "name": "[concat('azureautomation_',[resourceGroup().Name])]",
       "apiVersion": "2015-10-31",
       "location": "[variables('location')]",
       "properties": {
@@ -306,7 +302,7 @@
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[parameters('networkInterfaces_nic3",
+      "name": "nic3",
       "apiVersion": "2016-03-30",
       "location": "variables('location')",
       "properties": {
@@ -338,7 +334,7 @@
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[parameters('networkInterfaces_nic4",
+      "name": "nic4",
       "apiVersion": "2016-03-30",
       "location": "variables('location')",
       "properties": {
@@ -374,12 +370,12 @@
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups",
-      "name": "['NSG1']",
+      "name": "NSG1",
       "apiVersion": "2016-03-30",
       "location": "variables('location')",
       "properties": {
         "securityRules": [
-          {
+         {
             "name": "RDP-rule",
             "properties": {
               "description": "allow RDP",
@@ -414,7 +410,7 @@
     },
     {
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "'PublicIP1'",
+      "name": "PublicIP1",
       "apiVersion": "2016-03-30",
       "location": "variables('location')",
       "properties": {
@@ -426,7 +422,7 @@
     },
     {
       "type": "Microsoft.Network/virtualNetworks",
-      "name": "['VNet1']",
+      "name": "VNet1",
       "apiVersion": "2016-03-30",
       "location": "variables('location')",
       "properties": {
@@ -485,7 +481,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -499,7 +495,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -513,7 +509,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -527,7 +523,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -541,7 +537,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -555,7 +551,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -569,7 +565,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -583,7 +579,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -597,7 +593,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -611,7 +607,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -625,7 +621,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -639,7 +635,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -653,7 +649,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -667,7 +663,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -681,7 +677,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -695,7 +691,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -709,7 +705,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -723,7 +719,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -736,7 +732,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -749,7 +745,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -765,7 +761,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
@@ -781,7 +777,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',parameters('resourceGroupName'))])]"
+        "[resourceId('Microsoft.Automation/automationAccounts', [concat('azureautomation_',[resourceGroup().Name])])]"
       ]
     },
     {
