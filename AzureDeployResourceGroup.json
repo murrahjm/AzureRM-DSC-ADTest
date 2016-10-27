@@ -498,7 +498,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -512,7 +512,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -526,7 +526,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -540,7 +540,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -554,7 +554,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -568,7 +568,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -582,7 +582,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -596,7 +596,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -610,7 +610,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -624,7 +624,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -638,7 +638,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -652,7 +652,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -666,7 +666,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -680,7 +680,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -694,7 +694,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -708,7 +708,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -722,7 +722,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -736,7 +736,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -749,7 +749,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -762,7 +762,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -778,7 +778,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
@@ -794,7 +794,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
       ]
     },
     {
