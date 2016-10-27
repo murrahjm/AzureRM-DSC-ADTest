@@ -5,3 +5,5 @@ Param($ResourceGroupName)
 If (!(Get-AzureRmResourceGroup $ResourceGroupName -ea 'SilentlyContinue')){
     New-AzureRmResourceGroup $ResourceGroupName
 }
+
+write-output "(get-variable)"

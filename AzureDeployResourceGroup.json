@@ -5,33 +5,50 @@
       "virtualMachines_adminPassword" : {
           "Type": "SecureString",
           "defaultValue": null
+      },
+      "virtualMachines_AdminUsername": {
+          "Type": "String"
+      },
+      "location": {
+          "Type": "String"
+      },
+      "virtualMachines_vmSize": {
+          "Type": "String"
       }
   },
   "variables": {
-      "location": "southcentralus",
-      "virtualMachines_AdminUsername": "[concat(resourceGroup().Name,'Admin')]",
-      "virtualMachines_vmSize": "Standard_A0"
+    "azureAutomation_accountName": "[concat('azureautomation_',resourceGroup().Name)]",
+    "storageAccountName":  "[concat('Storage_',resourceGroup().Name)]",
+    "virtualMachines_vm1Name": "DC1",
+    "virtualMachines_vm2Name": "DC2",
+    "virtualMachines_vm3Name": "DC3",
+    "virtualMachines_vm4Name": "Server1",
+    "networkInterfaces_nic1Name": "NIC1",
+    "networkInterfaces_nic2Name": "NIC2",
+    "networkInterfaces_nic3Name": "NIC3",
+    "networkInterfaces_nic4Name": "NIC4"
   },
   "resources": [
     {
       "type": "Microsoft.Automation/automationAccounts",
-      "name": "[concat('azureautomation_',resourceGroup().Name)]",
+      "name": "[variables('azureAutomation_accountName')]",
       "apiVersion": "2015-10-31",
-      "location": "[variables('location')]",
+      "location": "[parameters('location')]",
       "properties": {
         "sku": "Free"
       },
       "resources": [],
       "dependsOn": []
     },
+    
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "DC1",
+      "name": "[variables('virtualMachines_vm1Name')]",
       "apiVersion": "2015-06-15",
-      "location": "[variables('location')]",
+      "location": "[parameters('location')]",
       "properties": {
         "hardwareProfile": {
-          "vmSize": "variables('virtualMachines_vmSize')"
+          "vmSize": "parameters('virtualMachines_vmSize')"
         },
         "storageProfile": {
           "imageReference": {
@@ -41,18 +58,18 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "DC1",
+            "name": "[variables('virtualMachines_vm1Name')]",
             "createOption": "FromImage",
             "vhd": {
-              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/','DC1','.vhd'))]"
+              "uri": "[concat('https', '://', variables('storageAccountName')), '.blob.core.windows.net', concat('/vhds/',[variables('virtualMachines_vm1Name')],'.vhd'))]"
             },
             "caching": "ReadWrite"
           },
           "dataDisks": []
         },
         "osProfile": {
-          "computerName": "DC1",
-          "adminUsername": "variables('virtualMachines_AdminUsername')",
+          "computerName": "[variables('virtualMachines_vm1Name')]",
+          "adminUsername": "parameters('virtualMachines_AdminUsername')",
           "windowsConfiguration": {
             "provisionVMAgent": true,
             "enableAutomaticUpdates": true
@@ -66,25 +83,25 @@
               "properties": {
                 "primary": true
               },
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'nic1')]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic1Name'))]"
             }
           ]
         }
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', 'ADTestStorage')]",
-        "[resourceId('Microsoft.Network/networkInterfaces','nic1')]"
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic1Name'))]"
       ]
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "DC2",
+      "name": "[variables('virtualMachines_vm2Name')]",
       "apiVersion": "2015-06-15",
-      "location": "variables('location')",
+      "location": "[parameters('location')]",
       "properties": {
         "hardwareProfile": {
-          "vmSize": "variables('virtualMachines_vmSize')"
+          "vmSize": "parameters('virtualMachines_vmSize')"
         },
         "storageProfile": {
           "imageReference": {
@@ -94,18 +111,18 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "DC2",
+            "name": "[variables('virtualMachines_vm2Name')]",
             "createOption": "FromImage",
             "vhd": {
-              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/', 'DC2','.vhd'))]"
+              "uri": "[concat('https', '://', variables('storageAccountName')), '.blob.core.windows.net', concat('/vhds/',[variables('virtualMachines_vm2Name')],'.vhd'))]"
             },
             "caching": "ReadWrite"
           },
           "dataDisks": []
         },
         "osProfile": {
-          "computerName": "DC2",
-          "adminUsername": "variables('virtualMachines_AdminUsername')",
+          "computerName": "[variables('virtualMachines_vm2Name')]",
+          "adminUsername": "parameters('virtualMachines_AdminUsername')",
           "windowsConfiguration": {
             "provisionVMAgent": true,
             "enableAutomaticUpdates": true
@@ -119,25 +136,25 @@
               "properties": {
                 "primary": true
               },
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'nic2')]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic2Name'))]"
             }
           ]
         }
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', 'ADTestStorage')]",
-        "[resourceId('Microsoft.Network/networkInterfaces', 'nic2')]"
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic2Name'))]"
       ]
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "DC3",
+      "name": "[variables('virtualMachines_vm3Name')]",
       "apiVersion": "2015-06-15",
-      "location": "variables('location')",
+      "location": "[parameters('location')]",
       "properties": {
         "hardwareProfile": {
-          "vmSize": "variables('virtualMachines_vmSize')"
+          "vmSize": "parameters('virtualMachines_vmSize')"
         },
         "storageProfile": {
           "imageReference": {
@@ -147,18 +164,18 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "DC3",
+            "name": "[variables('virtualMachines_vm3Name')]",
             "createOption": "FromImage",
             "vhd": {
-              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/', 'DC3','.vhd'))]"
+              "uri": "[concat('https', '://', variables('storageAccountName')), '.blob.core.windows.net', concat('/vhds/',[variables('virtualMachines_vm3Name')],'.vhd'))]"
             },
             "caching": "ReadWrite"
           },
           "dataDisks": []
         },
         "osProfile": {
-          "computerName": "DC3",
-          "adminUsername": "variables('virtualMachines_AdminUsername')",
+          "computerName": "[variables('virtualMachines_vm3Name')]",
+          "adminUsername": "parameters('virtualMachines_AdminUsername')",
           "windowsConfiguration": {
             "provisionVMAgent": true,
             "enableAutomaticUpdates": true
@@ -172,25 +189,25 @@
               "properties": {
                 "primary": true
               },
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'nic3')]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic3Name'))]"
             }
           ]
         }
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', 'ADTestStorage')]",
-        "[resourceId('Microsoft.Network/networkInterfaces', 'nic3')]"
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic3Name'))]"
       ]
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "Server1",
+      "name": "[variables('virtualMachines_vm4Name')]",
       "apiVersion": "2015-06-15",
-      "location": "variables('location')",
+      "location": "[parameters('location')]",
       "properties": {
         "hardwareProfile": {
-          "vmSize": "variables('virtualMachines_vmSize')"
+          "vmSize": "parameters('virtualMachines_vmSize')"
         },
         "storageProfile": {
           "imageReference": {
@@ -200,18 +217,18 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "Server1",
+            "name": "[variables('virtualMachines_vm4Name')]",
             "createOption": "FromImage",
             "vhd": {
-              "uri": "[concat('https', '://', 'ADTestStorage', '.blob.core.windows.net', concat('/vhds/', 'Server1','.vhd'))]"
+              "uri": "[concat('https', '://', variables('storageAccountName')), '.blob.core.windows.net', concat('/vhds/',[variables('virtualMachines_vm4Name')],'.vhd'))]"
             },
             "caching": "ReadWrite"
           },
           "dataDisks": []
         },
         "osProfile": {
-          "computerName": "Server1",
-          "adminUsername": "variables('virtualMachines_AdminUsername')",
+          "computerName": "[variables('virtualMachines_vm4Name')]",
+          "adminUsername": "parameters('virtualMachines_AdminUsername')",
           "windowsConfiguration": {
             "provisionVMAgent": true,
             "enableAutomaticUpdates": true
@@ -225,22 +242,22 @@
               "properties": {
                 "primary": true
               },
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'nic4')]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic4Name'))]"
             }
           ]
         }
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', 'ADTestStorage')]",
-        "[resourceId('Microsoft.Network/networkInterfaces', 'nic4')]"
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic4Name'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "NIC1",
+      "name": "[variables('networkInterfaces_nic1Name')]",
       "apiVersion": "2016-03-30",
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "properties": {
         "ipConfigurations": [
           {
@@ -270,9 +287,9 @@
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "Nic2",
+      "name": "[variables('networkInterfaces_nic2Name')]",
       "apiVersion": "2016-03-30",
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "properties": {
         "ipConfigurations": [
           {
@@ -302,9 +319,9 @@
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "nic3",
+      "name": "[variables('networkInterfaces_nic3Name')]",
       "apiVersion": "2016-03-30",
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "properties": {
         "ipConfigurations": [
           {
@@ -334,9 +351,9 @@
     },
     {
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "nic4",
+      "name": "[variables('networkInterfaces_nic4Name')]",
       "apiVersion": "2016-03-30",
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "properties": {
         "ipConfigurations": [
           {
@@ -372,7 +389,7 @@
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "NSG1",
       "apiVersion": "2016-03-30",
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "properties": {
         "securityRules": [
          {
@@ -412,7 +429,7 @@
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "PublicIP1",
       "apiVersion": "2016-03-30",
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "idleTimeoutInMinutes": 4
@@ -424,7 +441,7 @@
       "type": "Microsoft.Network/virtualNetworks",
       "name": "VNet1",
       "apiVersion": "2016-03-30",
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -462,9 +479,9 @@
         "tier": "Standard"
       },
       "kind": "Storage",
-      "name": "ADTestStorage",
+      "name": "[variables('storageAccountName')]",
       "apiVersion": "2016-01-01",
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "tags": {},
       "properties": {},
       "resources": [],
@@ -481,7 +498,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -495,7 +512,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -509,7 +526,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -523,7 +540,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -537,7 +554,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -551,7 +568,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -565,7 +582,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -579,7 +596,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -593,7 +610,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -607,7 +624,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -621,7 +638,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -635,7 +652,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -649,7 +666,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -663,7 +680,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -677,7 +694,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -691,7 +708,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -705,7 +722,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -719,7 +736,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -732,7 +749,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -745,7 +762,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -761,7 +778,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
@@ -777,14 +794,14 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', 'concat('azureautomation_',resourceGroup().Name)')]"
+        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName')]"
       ]
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "BGInfo",
       "apiVersion": "2016-03-30",
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "properties": {
         "publisher": "Microsoft.Compute",
         "type": "BGInfo",
@@ -795,14 +812,14 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines', DC1)]"
+        "[resourceId('Microsoft.Compute/virtualMachines', variables('virtualMachines_vm1Name'))]"
       ]
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "BGInfo",
       "apiVersion": "2016-03-30",
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "properties": {
         "publisher": "Microsoft.Compute",
         "type": "BGInfo",
@@ -813,15 +830,15 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines', DC2)]"
+        "[resourceId('Microsoft.Compute/virtualMachines', variables('virtualMachines_vm2Name'))]"
       ]
     },
     {
       "apiVersion": "2016-03-30",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines', DC3)]"
+        "[resourceId('Microsoft.Compute/virtualMachines', variables('virtualMachines_vm3Name'))]"
       ],
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "name": "BGInfo",
       "properties": {
         "publisher": "Microsoft.Compute",
@@ -837,9 +854,9 @@
     {
       "apiVersion": "2016-03-30",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines', Server1)]"
+        "[resourceId('Microsoft.Compute/virtualMachines', variables('virtualMachines_vm4Name'))]"
       ],
-      "location": "variables('location')",
+      "location": "parameters('location')",
       "name": "BGInfo",
       "properties": {
         "publisher": "Microsoft.Compute",
