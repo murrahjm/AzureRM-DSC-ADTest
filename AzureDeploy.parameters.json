@@ -1,0 +1,28 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_adminUsername": {
+            "value": "ADTestAdmin" 
+        },
+        "virtualmachines_vmSize": {
+            "value": "Standard_A1"
+        },
+        "location": {
+            "value": "SouthCentralUS"
+        },
+        "configurationURI": {
+            "value": "https://raw.githubusercontent.com/murrahjm/AzureRM-DSC-ADTest/master/ADTestConfiguration.ps1"
+        },
+        "configurationName": {
+            "value": "ADTestConfiguration"
+        },
+        "registrationKey": {
+            "value": "changeMe_AzureAutomationRegistrationKey"
+        },
+        "registrationUrl": {
+            "value": "changeMe_AzureAutomationRegistrationUrl"
+        },
+    }
+}
+

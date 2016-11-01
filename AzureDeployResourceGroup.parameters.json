@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "virtualMachines_adminUsername": {
-            "value": "[concat(resourceGroup().Name,'Admin')]" 
+            "value": "ADTestAdmin" 
         },
         "virtualmachines_vmSize": {
-            "value": "Standard_A0"
+            "value": "Standard_A1"
         }
     }
 }

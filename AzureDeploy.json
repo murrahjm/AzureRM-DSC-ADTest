@@ -1,31 +1,214 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
       "virtualMachines_adminPassword" : {
           "Type": "SecureString",
           "defaultValue": null
       },
-      "virtualMachines_AdminUsername": {
-          "Type": "String"
+      "virtualMachines_adminUsername": {
+        "Type": "String"
       },
-      "virtualMachines_vmSize": {
-          "Type": "String"
+        "virtualmachines_vmSize": {
+        "Type": "String"
+      },
+      "location": {
+        "Type": "String"
+      },
+        "registrationKey": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Registration key to use to onboard to the Azure Automation DSC pull/reporting server"
+            }
+        },
+        "registrationUrl": {
+            "type": "string",
+            "metadata": {
+                "description": "Registration url of the Azure Automation DSC pull/reporting server"
+            }
+        },
+        "nodeConfigurationName": {
+            "type": "string",
+            "defaultValue": "MyService.webServer",
+            "metadata": {
+                "description": "The name of the node configuration, on the Azure Automation DSC pull server, that this node will be configured as"
+            }
+        },
+        "configurationMode": {
+            "type": "string",
+            "defaultValue": "ApplyAndAutoCorrect",
+            "allowedValues": [
+                "ApplyOnly",
+                "ApplyAndMonitor",
+                "ApplyAndAutoCorrect"
+            ],
+            "metadata": {
+                "description": "DSC agent (LCM) configuration mode setting. ApplyOnly, ApplyAndMonitor, or ApplyAndAutoCorrect"
+            }
+        },
+        "configurationModeFrequencyMins": {
+            "type": "int",
+            "defaultValue": 15,
+            "metadata": {
+                "description": "DSC agent (LCM) configuration mode frequency setting, in minutes"
+            }
+        },
+        "refreshFrequencyMins": {
+            "type": "int",
+            "defaultValue": 30,
+            "metadata": {
+                "description": "DSC agent (LCM) refresh frequency setting, in minutes"
+            }
+        },
+        "rebootNodeIfNeeded": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "DSC agent (LCM) rebootNodeIfNeeded setting"
+            }
+        },
+        "actionAfterReboot": {
+            "type": "string",
+            "defaultValue": "ContinueConfiguration",
+            "allowedValues": [
+                "ContinueConfiguration",
+                "StopConfiguration"
+            ],
+            "metadata": {
+                "description": "DSC agent (LCM) actionAfterReboot setting. ContinueConfiguration or StopConfiguration"
+            }
+        },
+        "allowModuleOverwrite": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "DSC agent (LCM) allowModuleOverwrite setting"
+            }
+        },
+
+      "configurationURI": {
+        "Type": "String"
+      },
+      "configurationName": {
+        "Type": "String"
       }
-  },
+
+    },
   "variables": {
-    "azureAutomation_accountName": "[concat('azureautomation',resourceGroup().Name)]",
-    "storageAccountName":  "[concat('storage',resourceGroup().Name)]",
+    "computeApi": "2016-03-30",
+    "networkApi": "2016-03-30",
+    "storageApi": "2015-06-15",
+    "insightsApi": "2015-04-01",
+    "automationApiVersion": "2015-10-31",
+    "azureAutomation_accountName": "[concat('azureautomation-',resourceGroup().Name)]",
+    "storageAccountName":  "[concat('storage',toLower(resourceGroup().Name))]",
     "virtualMachines_vm1Name": "DC1",
     "virtualMachines_vm2Name": "DC2",
     "virtualMachines_vm3Name": "DC3",
     "virtualMachines_vm4Name": "Server1",
+    "virtualMachines_domainName": "testdomain.local",
+    "azureautomation_vm1ConfigurationName": "[concat(parameters('configurationName'), variables('virtualMachines_vm1Name'), variables('virtualMachines_domainname'))]",
+    "azureautomation_vm2ConfigurationName": "[concat(parameters('configurationName'), variables('virtualMachines_vm2Name'), variables('virtualMachines_domainname'))]",
+    "azureautomation_vm3ConfigurationName": "[concat(parameters('configurationName'), variables('virtualMachines_vm3Name'), variables('virtualMachines_domainname'))]",
+    "azureautomation_vm4ConfigurationName": "[concat(parameters('configurationName'), variables('virtualMachines_vm4Name'), variables('virtualMachines_domainname'))]",
     "networkInterfaces_nic1Name": "NIC1",
     "networkInterfaces_nic2Name": "NIC2",
     "networkInterfaces_nic3Name": "NIC3",
-    "networkInterfaces_nic4Name": "NIC4"
+    "networkInterfaces_nic4Name": "NIC4",
+    "sourceRootURI": "https://raw.githubusercontent.com/murrahjm/AzureRM-DSC-ADTest/master",
+    "dscModules": {
+      "xActiveDirectory": {
+        "moduleName": "xActiveDirectory",
+        "moduleURI": "concat(variables('sourceRootURI'), '/dscModules/xActiveDirectory.zip')"
+      },
+      "xPSDesiredStateConfiguration": {
+        "moduleName": "xPSDesiredStateConfiguration",
+        "moduleURI": "concat(variables('sourceRootURI'), '/dscModules/xPSDesiredStateConfiguration.zip')"
+      }
+    }
   },
   "resources": [
+        {
+            "type": "Microsoft.Automation/automationAccounts",
+            "name": "[variables('azureautomation_AccountName')]",
+            "apiVersion": "[variables('automationApiVersion')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [],
+            "tags": {},
+            "properties": {
+                "sku": {
+                    "name": "Free"
+                }
+            },
+            "resources": [
+                {
+                    "name": "[concat(variables('azureautomation_accountname'), '/', variables('dscModules').xActiveDirectory.ModuleName)]",
+                    "type": "microsoft.automation/automationAccounts/Modules",
+                    "apiVersion": "[variables('automationApiVersion')]",
+                    "tags": {},
+                    "dependsOn": [
+                        "[concat('Microsoft.Automation/automationAccounts/', variables('azureautomation_accountname'))]"
+                    ],
+                    "properties": {
+                        "contentLink": {
+                            "uri": "[variables('dscModules').xActiveDirectory.ModuleUri]"
+                        }
+                    }
+                },
+                {
+                    "name": "[concat(variables('azureautomation_accountname'), '/', variables('dscModules').xPSDesiredStateConfiguration.ModuleName)]",
+                    "type": "microsoft.automation/automationAccounts/Modules",
+                    "apiVersion": "[variables('automationApiVersion')]",
+                    "tags": {},
+                    "dependsOn": [
+                        "[concat('Microsoft.Automation/automationAccounts/', variables('azureautomation_accountname'))]"
+                    ],
+                    "properties": {
+                        "contentLink": {
+                            "uri": "[variables('dscModules').xPSDesiredStateConfiguration.ModuleUri]"
+                        }
+                    }
+                },
+                {
+                    "name": "[parameters('configurationName')]",
+                    "type": "Configurations",
+                    "apiVersion": "[variables('automationApiVersion')]",
+                    "location": "[parameters('location')]",
+                    "tags": {},
+                    "dependsOn": [
+                        "[concat('Microsoft.Automation/automationAccounts/', variables('azureautomation_accountname'))]"
+                    ],
+                    "properties": {
+                        "logVerbose": "false",
+                        "description": "[parameters('configurationDescription')]",
+                        "state": "Published",
+                        "overwrite": "[variables('dscOverwrite')]",
+                        "Source": {
+                            "type": "uri",
+                            "Value": "[parameters('configurationURI')]"
+                        }
+                    }
+                },
+                {
+                    "name": "DSCCompilationJob",
+                    "type": "Compilationjobs",
+                    "apiVersion": "[variables('automationApiVersion')]",
+                    "location": "parameters('location')]",
+                    "tags": {},
+                    "dependsOn": [
+                        "[concat('Microsoft.Automation/automationAccounts/', variables('azureautomation_accountname'))]",
+                        "[concat('Microsoft.Automation/automationAccounts/', variables('azureautomation_accountname'),'/Modules/',variables('dscModules').xActiveDirectory.ModuleName)]",
+                        "[concat('Microsoft.Automation/automationAccounts/', variables('azureautomation_accountname'),'/Modules/',variables('dscModules').xPSDesiredStateConfiguration.ModuleName)]",
+                        "[concat('Microsoft.Automation/automationAccounts/', variables('azureautomation_accountname'),'/Configurations/', parameters('configurationName'))]"
+                    ],
+                    "properties": {
+                        "configuration": {
+                            "name": "[parameters('configurationName')]"
+                        }
+                    }
+                }
+            ]
+        },
     {
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('virtualMachines_vm1Name')]",
@@ -73,7 +256,91 @@
           ]
         }
       },
-      "resources": [],
+      "resources": [
+              {
+                  "type": "extensions",
+                  "name": "DSCScript1",
+                  "apiVersion": "2015-06-15",
+                  "location": "[resourceGroup().location]",
+                  "tags": {
+                      "displayName": "DSCScript1"
+                  },
+                  "dependsOn": [
+                      "[concat('Microsoft.Compute/virtualMachines/', variables('virtualMachines_vm1Name'))]"
+                  ],
+                  "properties": {
+                      "publisher": "Microsoft.Powershell",
+                      "type": "DSC",
+                      "typeHandlerVersion": "2.9",
+                      "autoUpgradeMinorVersion": true,
+                      "settings": {
+                          "modulesUrl": "[concat(variables('sourceRootURI'), '/DSCModules/UpdateLCMforAAPull.zip')]",
+                          "sasToken": "",
+                          "configurationFunction": "UpdateLCMforAAPull.ps1\\ConfigureLCMforAAPull",
+                          "properties": [
+                            {
+                            "Name": "RegistrationKey",
+                            "Value": {
+                                "UserName": "PLACEHOLDER_DONOTUSE",
+                                "Password": "PrivateSettingsRef:registrationKeyPrivate"
+                            },
+                            "TypeName": "System.Management.Automation.PSCredential"
+                            },
+                            {
+                            "Name": "RegistrationUrl",
+                            "Value": "[parameters('registrationUrl')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "NodeConfigurationName",
+                            "Value": "[parameters('nodeConfigurationName')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "ConfigurationMode",
+                            "Value": "[parameters('configurationMode')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "ConfigurationModeFrequencyMins",
+                            "Value": "[parameters('configurationModeFrequencyMins')]",
+                            "TypeName": "System.Int32"
+                            },
+                            {
+                            "Name": "RefreshFrequencyMins",
+                            "Value": "[parameters('refreshFrequencyMins')]",
+                            "TypeName": "System.Int32"
+                            },
+                            {
+                            "Name": "RebootNodeIfNeeded",
+                            "Value": "[parameters('rebootNodeIfNeeded')]",
+                            "TypeName": "System.Boolean"
+                            },
+                            {
+                            "Name": "ActionAfterReboot",
+                            "Value": "[parameters('actionAfterReboot')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "AllowModuleOverwrite",
+                            "Value": "[parameters('allowModuleOverwrite')]",
+                            "TypeName": "System.Boolean"
+                            },
+                            {
+                            "Name": "Timestamp",
+                            "Value": "[parameters('timestamp')]",
+                            "TypeName": "System.String"
+                            }
+                          ]
+                      },
+                      "protectedSettings": {
+                        "Items": {
+                            "registrationKeyPrivate": "[parameters('registrationKey')]"
+                        }
+                      }
+                  }
+              }
+      ],
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
         "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic1Name'))]"
@@ -472,301 +739,7 @@
       "resources": [],
       "dependsOn": []
     },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "AzureRM.Automation/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "contentLink": {
-          "uri": "https://devopsgallerystorage.blob.core.windows.net/packages/azurerm.automation.1.0.11.nupkg"
-        }
-      },
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts",
-      "name": "[variables('azureAutomation_accountName')]",
-      "apiVersion": "2015-10-31",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "sku": {
-          "name": "Free"
-        }
-      },
-      "resources": [],
-      "dependsOn": []
-    },
     
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "AzureRM.Compute/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "AzureRM.Profile/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "AzureRM.Resources/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "AzureRM.Sql/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "AzureRM.Storage/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "Microsoft.PowerShell.Core/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "Microsoft.PowerShell.Diagnostics/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "Microsoft.PowerShell.Management/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "Microsoft.PowerShell.Security/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "Microsoft.PowerShell.Utility/modules]",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "Microsoft.WSMan.Management/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "Orchestrator.AssetManagement.Cmdlets/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": true,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "Pester/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": false,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "xActiveDirectory/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": false,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/modules",
-      "name": "xPSDesiredStateConfiguration/modules",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "isGlobal": false,
-        "version": null,
-        "sizeInBytes": 0
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/certificates",
-      "name": "AzureClassicRunAsCertificate/certificates",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "description": "This certificate is used to authenticate with Azure so that you can manage Azure classic resources from runbooks. For details on this certificate, or to manage it, go to this account’s Settings.  For example usage, see the tutorial runbook in this account.",
-        "base64Value": "AzureClassicRunAsCertificate_base64Value')]"
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/certificates",
-      "name": "AzureRunAsCertificate/certificates",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "description": "This certificate is used to authenticate with the service principal that was automatically created for this account. For details on this service principal and certificate, or to recreate them, go to this account’s Settings. For example usage, see the tutorial runbook in this account.",
-        "base64Value": "AzureRunAsCertificate_base64Value')]"
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/connections",
-      "name": "AzureClassicRunAsConnection/connections",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "description": null,
-        "fieldDefinitionValues": null,
-        "connectionType": {
-          "name": "AzureClassicCertificate"
-        }
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Automation/automationAccounts/connections",
-      "name": "AzureRunAsConnection/connections",
-      "apiVersion": "2015-10-31",
-      "properties": {
-        "description": null,
-        "fieldDefinitionValues": null,
-        "connectionType": {
-          "name": "AzureServicePrincipal"
-        }
-      },
-      "resources": [],
-      "dependsOn": [
-        "[resourceId('Microsoft.Automation/automationAccounts', variables('azureAutomation_accountName'))]"
-      ]
-    },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(variables('virtualMachines_vm1Name'), '/BGInfo')]",
