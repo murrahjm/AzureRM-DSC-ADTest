@@ -1,25 +1,25 @@
 @{
     AllNodes = @(
 		@{
-			NodeName = 'DC1.testdomain.local'
+			NodeName = 'DC1'
 			Domain = 'testdomain.local'
 			Site = 'Site1'
 			Functions = @('DomainController','SchemaMaster','DomainNamingMaster','RIDMaster','PDCEmulator','InfrastructureMaster')
 			},
 		@{
-			NodeName = 'DC2.testdomain.local'
+			NodeName = 'DC2'
 			Domain = 'testdomain.local'
 			Site = 'Site2'
 			Functions = @('DomainController')
 			},
 		@{
-			NodeName = 'DC3.testdomain.local'
+			NodeName = 'DC3'
 			Domain = 'testdomain.local'
 			Site = 'Site3'
 			Functions = @('DomainController','backup')
 			},
 		@{
-			NodeName = 'Server1.testdomain.local'
+			NodeName = 'Server1'
 			Domain = 'testdomain.local'
 			Site = 'Site1'
 			Functions = @('MemberServer')

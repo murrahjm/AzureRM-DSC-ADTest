@@ -26,13 +26,6 @@
                 "description": "Registration url of the Azure Automation DSC pull/reporting server"
             }
         },
-        "nodeConfigurationName": {
-            "type": "string",
-            "defaultValue": "MyService.webServer",
-            "metadata": {
-                "description": "The name of the node configuration, on the Azure Automation DSC pull server, that this node will be configured as"
-            }
-        },
         "configurationMode": {
             "type": "string",
             "defaultValue": "ApplyAndAutoCorrect",
@@ -44,6 +37,9 @@
             "metadata": {
                 "description": "DSC agent (LCM) configuration mode setting. ApplyOnly, ApplyAndMonitor, or ApplyAndAutoCorrect"
             }
+        },
+        "nodeConfigurationName": {
+          "type": "String"
         },
         "configurationModeFrequencyMins": {
             "type": "int",
@@ -310,7 +306,7 @@
                             },
                             {
                             "Name": "NodeConfigurationName",
-                            "Value": "[variables('azureautomation_vm1ConfigurationName')]",
+                            "Value": "parameters('nodeConfigurationName')",
                             "TypeName": "System.String"
                             },
                             {

@@ -29,7 +29,7 @@ configuration ADTestConfiguration {
 					IncludeAllSubFeature = $true
 				}
 			}
-			If (($Node.domain -eq $ForestData.ForestName) -and ($Node.NodeName -eq $DomainData.PDCEmulator)){
+			If (($Node.domain -eq $ForestData.ForestName) -and ("$($Node.NodeName).$($Node.Domain)" -eq $DomainData.PDCEmulator)){
 				Registry NTPServers {
 					Key = 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\W32Time\Parameters'
 					ValueName = 'NtpServer'
