@@ -22,7 +22,7 @@
         },
         "registrationUrl": {
             "value": "changeMe_AzureAutomationRegistrationUrl"
-        },
+        }
     }
 }
 

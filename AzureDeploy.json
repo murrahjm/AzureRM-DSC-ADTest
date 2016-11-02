@@ -3,8 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "virtualMachines_adminPassword" : {
-          "Type": "SecureString",
-          "defaultValue": null
+          "Type": "SecureString"
       },
       "virtualMachines_adminUsername": {
         "Type": "String"
@@ -85,15 +84,32 @@
                 "description": "DSC agent (LCM) allowModuleOverwrite setting"
             }
         },
-
+        "timestamp": {
+            "type": "string",
+            "defaultValue": "MM/dd/yyyy H:mm:ss tt",
+            "metadata": {
+                "description": "The current datetime, as a string, to force the request to go through ARM even if all fields are the same as last ARM deployment of this template; example in parameters file is in MM/dd/yyyy H:mm:ss tt format"
+            }
+        },
       "configurationURI": {
         "Type": "String"
       },
       "configurationName": {
         "Type": "String"
+      },
+    "jobId": {
+      "type": "string",
+      "metadata": {
+        "description": "the job id to compile the configuration"
       }
-
     },
+    "jobConfigurationData": {
+      "type": "string",
+      "metadata": {
+        "description": "Escaped Json of DSC ConfigurationData"
+      }
+    }
+  },
   "variables": {
     "computeApi": "2016-03-30",
     "networkApi": "2016-03-30",
@@ -107,10 +123,10 @@
     "virtualMachines_vm3Name": "DC3",
     "virtualMachines_vm4Name": "Server1",
     "virtualMachines_domainName": "testdomain.local",
-    "azureautomation_vm1ConfigurationName": "[concat(parameters('configurationName'), variables('virtualMachines_vm1Name'), variables('virtualMachines_domainname'))]",
-    "azureautomation_vm2ConfigurationName": "[concat(parameters('configurationName'), variables('virtualMachines_vm2Name'), variables('virtualMachines_domainname'))]",
-    "azureautomation_vm3ConfigurationName": "[concat(parameters('configurationName'), variables('virtualMachines_vm3Name'), variables('virtualMachines_domainname'))]",
-    "azureautomation_vm4ConfigurationName": "[concat(parameters('configurationName'), variables('virtualMachines_vm4Name'), variables('virtualMachines_domainname'))]",
+    "azureautomation_vm1ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm1Name'), '.', variables('virtualMachines_domainname'))]",
+    "azureautomation_vm2ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm2Name'), '.', variables('virtualMachines_domainname'))]",
+    "azureautomation_vm3ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm3Name'), '.', variables('virtualMachines_domainname'))]",
+    "azureautomation_vm4ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm4Name'), '.', variables('virtualMachines_domainname'))]",
     "networkInterfaces_nic1Name": "NIC1",
     "networkInterfaces_nic2Name": "NIC2",
     "networkInterfaces_nic3Name": "NIC3",
@@ -119,11 +135,11 @@
     "dscModules": {
       "xActiveDirectory": {
         "moduleName": "xActiveDirectory",
-        "moduleURI": "concat(variables('sourceRootURI'), '/dscModules/xActiveDirectory.zip')"
+        "moduleURI": "https://raw.githubusercontent.com/murrahjm/AzureRM-DSC-ADTest/master/DSCModules/xActiveDirectory.zip"
       },
       "xPSDesiredStateConfiguration": {
         "moduleName": "xPSDesiredStateConfiguration",
-        "moduleURI": "concat(variables('sourceRootURI'), '/dscModules/xPSDesiredStateConfiguration.zip')"
+        "moduleURI": "https://raw.githubusercontent.com/murrahjm/AzureRM-DSC-ADTest/master/DSCModules/xPSDesiredStateConfiguration.zip"
       }
     }
   },
@@ -180,9 +196,9 @@
                     ],
                     "properties": {
                         "logVerbose": "false",
-                        "description": "[parameters('configurationDescription')]",
+                        "description": "ad test configuration",
                         "state": "Published",
-                        "overwrite": "[variables('dscOverwrite')]",
+                        "overwrite": "False",
                         "Source": {
                             "type": "uri",
                             "Value": "[parameters('configurationURI')]"
@@ -190,7 +206,7 @@
                     }
                 },
                 {
-                    "name": "DSCCompilationJob",
+                    "name": "[parameters('jobID')]",
                     "type": "Compilationjobs",
                     "apiVersion": "[variables('automationApiVersion')]",
                     "location": "parameters('location')]",
@@ -204,7 +220,10 @@
                     "properties": {
                         "configuration": {
                             "name": "[parameters('configurationName')]"
-                        }
+                        },
+                      "parameters": {
+                        "ConfigurationData": "[parameters('jobConfigurationData')]"
+                      }
                     }
                 }
             ]
@@ -259,12 +278,10 @@
       "resources": [
               {
                   "type": "extensions",
-                  "name": "DSCScript1",
+                  "name": "[concat(variables('virtualMachines_vm1Name'), '-DSCExtension')]",
                   "apiVersion": "2015-06-15",
                   "location": "[resourceGroup().location]",
-                  "tags": {
-                      "displayName": "DSCScript1"
-                  },
+                  "tags": {},
                   "dependsOn": [
                       "[concat('Microsoft.Compute/virtualMachines/', variables('virtualMachines_vm1Name'))]"
                   ],
@@ -293,7 +310,7 @@
                             },
                             {
                             "Name": "NodeConfigurationName",
-                            "Value": "[parameters('nodeConfigurationName')]",
+                            "Value": "[variables('azureautomation_vm1ConfigurationName')]",
                             "TypeName": "System.String"
                             },
                             {
