@@ -112,7 +112,7 @@
     "storageApi": "2015-06-15",
     "insightsApi": "2015-04-01",
     "automationApiVersion": "2015-10-31",
-    "azureAutomation_accountName": "[concat('azureautomation-',resourceGroup().Name)]",
+    "azureAutomation_accountName": "[concat('AA-',resourceGroup().Name)]",
     "storageAccountName":  "[concat('storage',toLower(resourceGroup().Name))]",
     "virtualMachines_vm1Name": "DC1",
     "virtualMachines_vm2Name": "DC2",

@@ -8,7 +8,7 @@ configuration testconfig {
             Ensure = 'Present'
             Name = 'Telnet-Client'
         }
-        
+    } 
 }
 
 # 
