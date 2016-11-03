@@ -218,7 +218,6 @@
                             "name": "[parameters('configurationName')]"
                         },
                       "parameters": {
-                        "ConfigurationData": "[parameters('jobConfigurationData')]"
                       }
                     }
                 }
