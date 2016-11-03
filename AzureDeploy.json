@@ -194,7 +194,7 @@
                         "logVerbose": "false",
                         "description": "ad test configuration",
                         "state": "Published",
-                        "overwrite": "False",
+                        "overwrite": "True",
                         "Source": {
                             "type": "uri",
                             "Value": "[parameters('configurationURI')]"

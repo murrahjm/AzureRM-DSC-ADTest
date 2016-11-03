@@ -24,7 +24,7 @@
 			Site = 'Site1'
 			Functions = @('MemberServer')
 			}
-    );
+    )
 	NonNodeData = @{
 	Forests = @(
 		@{
