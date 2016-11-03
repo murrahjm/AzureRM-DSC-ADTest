@@ -112,7 +112,7 @@
     "storageApi": "2015-06-15",
     "insightsApi": "2015-04-01",
     "automationApiVersion": "2015-10-31",
-    "azureAutomation_accountName": "[concat('AA-',resourceGroup().Name)]",
+    "azureAutomation_accountName": "[concat('azureautomation-',resourceGroup().Name)]",
     "storageAccountName":  "[concat('storage',toLower(resourceGroup().Name))]",
     "virtualMachines_vm1Name": "DC1",
     "virtualMachines_vm2Name": "DC2",
@@ -275,7 +275,7 @@
               {
                   "type": "extensions",
                   "name": "[concat(variables('virtualMachines_vm1Name'), '-DSCExtension')]",
-                  "apiVersion": "2015-06-15",
+                  "apiVersion": "2016-03-30",
                   "location": "[resourceGroup().location]",
                   "tags": {},
                   "dependsOn": [
@@ -284,12 +284,12 @@
                   "properties": {
                       "publisher": "Microsoft.Powershell",
                       "type": "DSC",
-                      "typeHandlerVersion": "2.9",
+                      "typeHandlerVersion": "2.19",
                       "autoUpgradeMinorVersion": true,
                       "settings": {
-                          "modulesUrl": "[concat(variables('sourceRootURI'), '/DSCModules/UpdateLCMforAAPull.zip')]",
+                          "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
                           "sasToken": "",
-                          "configurationFunction": "UpdateLCMforAAPull.ps1\\ConfigureLCMforAAPull",
+                          "configurationFunction": "RegistrationMetaConfigV2.ps1\\RegistrationMetaConfigV2",
                           "properties": [
                             {
                             "Name": "RegistrationKey",
