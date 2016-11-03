@@ -1,6 +1,6 @@
 configuration testconfig {
 	Import-DscResource -modulename PSDesiredStateConfiguration
-    node DC1 {
+    node localhost {
         
         windowsfeature telnetclient {
             Ensure = 'Present'
