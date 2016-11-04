@@ -38,9 +38,6 @@
                 "description": "DSC agent (LCM) configuration mode setting. ApplyOnly, ApplyAndMonitor, or ApplyAndAutoCorrect"
             }
         },
-        "nodeConfigurationName": {
-          "type": "String"
-        },
         "configurationModeFrequencyMins": {
             "type": "int",
             "defaultValue": 15,
@@ -119,10 +116,10 @@
     "virtualMachines_vm3Name": "DC3",
     "virtualMachines_vm4Name": "Server1",
     "virtualMachines_domainName": "testdomain.local",
-    "azureautomation_vm1ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm1Name'), '.', variables('virtualMachines_domainname'))]",
-    "azureautomation_vm2ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm2Name'), '.', variables('virtualMachines_domainname'))]",
-    "azureautomation_vm3ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm3Name'), '.', variables('virtualMachines_domainname'))]",
-    "azureautomation_vm4ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm4Name'), '.', variables('virtualMachines_domainname'))]",
+    "azureautomation_vm1ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm1Name'))]",
+    "azureautomation_vm2ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm2Name'))]",
+    "azureautomation_vm3ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm3Name'))]",
+    "azureautomation_vm4ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm4Name'))]",
     "networkInterfaces_nic1Name": "NIC1",
     "networkInterfaces_nic2Name": "NIC2",
     "networkInterfaces_nic3Name": "NIC3",
@@ -218,6 +215,7 @@
                             "name": "[parameters('configurationName')]"
                         },
                       "parameters": {
+                        "ConfigurationData": "[parameters('jobConfigurationData')]"  
                       }
                     }
                 }
@@ -284,7 +282,7 @@
                       "publisher": "Microsoft.Powershell",
                       "type": "DSC",
                       "typeHandlerVersion": "2.19",
-                      "autoUpgradeMinorVersion": true,
+                      "autoUpgradeMinorVersion": false,
                       "settings": {
                           "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
                           "sasToken": "",
@@ -305,7 +303,7 @@
                             },
                             {
                             "Name": "NodeConfigurationName",
-                            "Value": "parameters('nodeConfigurationName')",
+                            "Value": "[variables('azureautomation_vm1ConfigurationName')]",
                             "TypeName": "System.String"
                             },
                             {
@@ -405,7 +403,90 @@
           ]
         }
       },
-      "resources": [],
+      "resources": [
+              {
+                  "type": "extensions",
+                  "name": "[concat(variables('virtualMachines_vm2Name'), '-DSCExtension')]",
+                  "apiVersion": "2016-03-30",
+                  "location": "[resourceGroup().location]",
+                  "tags": {},
+                  "dependsOn": [
+                      "[concat('Microsoft.Compute/virtualMachines/', variables('virtualMachines_vm2Name'))]"
+                  ],
+                  "properties": {
+                      "publisher": "Microsoft.Powershell",
+                      "type": "DSC",
+                      "typeHandlerVersion": "2.19",
+                      "autoUpgradeMinorVersion": false,
+                      "settings": {
+                          "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
+                          "sasToken": "",
+                          "configurationFunction": "RegistrationMetaConfigV2.ps1\\RegistrationMetaConfigV2",
+                          "properties": [
+                            {
+                            "Name": "RegistrationKey",
+                            "Value": {
+                                "UserName": "PLACEHOLDER_DONOTUSE",
+                                "Password": "PrivateSettingsRef:registrationKeyPrivate"
+                            },
+                            "TypeName": "System.Management.Automation.PSCredential"
+                            },
+                            {
+                            "Name": "RegistrationUrl",
+                            "Value": "[parameters('registrationUrl')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "NodeConfigurationName",
+                            "Value": "[variables('azureautomation_vm2ConfigurationName')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "ConfigurationMode",
+                            "Value": "[parameters('configurationMode')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "ConfigurationModeFrequencyMins",
+                            "Value": "[parameters('configurationModeFrequencyMins')]",
+                            "TypeName": "System.Int32"
+                            },
+                            {
+                            "Name": "RefreshFrequencyMins",
+                            "Value": "[parameters('refreshFrequencyMins')]",
+                            "TypeName": "System.Int32"
+                            },
+                            {
+                            "Name": "RebootNodeIfNeeded",
+                            "Value": "[parameters('rebootNodeIfNeeded')]",
+                            "TypeName": "System.Boolean"
+                            },
+                            {
+                            "Name": "ActionAfterReboot",
+                            "Value": "[parameters('actionAfterReboot')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "AllowModuleOverwrite",
+                            "Value": "[parameters('allowModuleOverwrite')]",
+                            "TypeName": "System.Boolean"
+                            },
+                            {
+                            "Name": "Timestamp",
+                            "Value": "[parameters('timestamp')]",
+                            "TypeName": "System.String"
+                            }
+                          ]
+                      },
+                      "protectedSettings": {
+                        "Items": {
+                            "registrationKeyPrivate": "[parameters('registrationKey')]"
+                        }
+                      }
+                  }
+              }
+
+      ],
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
         "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic2Name'))]"
@@ -458,7 +539,90 @@
           ]
         }
       },
-      "resources": [],
+      "resources": [
+              {
+                  "type": "extensions",
+                  "name": "[concat(variables('virtualMachines_vm3Name'), '-DSCExtension')]",
+                  "apiVersion": "2016-03-30",
+                  "location": "[resourceGroup().location]",
+                  "tags": {},
+                  "dependsOn": [
+                      "[concat('Microsoft.Compute/virtualMachines/', variables('virtualMachines_vm3Name'))]"
+                  ],
+                  "properties": {
+                      "publisher": "Microsoft.Powershell",
+                      "type": "DSC",
+                      "typeHandlerVersion": "2.19",
+                      "autoUpgradeMinorVersion": false,
+                      "settings": {
+                          "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
+                          "sasToken": "",
+                          "configurationFunction": "RegistrationMetaConfigV2.ps1\\RegistrationMetaConfigV2",
+                          "properties": [
+                            {
+                            "Name": "RegistrationKey",
+                            "Value": {
+                                "UserName": "PLACEHOLDER_DONOTUSE",
+                                "Password": "PrivateSettingsRef:registrationKeyPrivate"
+                            },
+                            "TypeName": "System.Management.Automation.PSCredential"
+                            },
+                            {
+                            "Name": "RegistrationUrl",
+                            "Value": "[parameters('registrationUrl')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "NodeConfigurationName",
+                            "Value": "[variables('azureautomation_vm3ConfigurationName')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "ConfigurationMode",
+                            "Value": "[parameters('configurationMode')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "ConfigurationModeFrequencyMins",
+                            "Value": "[parameters('configurationModeFrequencyMins')]",
+                            "TypeName": "System.Int32"
+                            },
+                            {
+                            "Name": "RefreshFrequencyMins",
+                            "Value": "[parameters('refreshFrequencyMins')]",
+                            "TypeName": "System.Int32"
+                            },
+                            {
+                            "Name": "RebootNodeIfNeeded",
+                            "Value": "[parameters('rebootNodeIfNeeded')]",
+                            "TypeName": "System.Boolean"
+                            },
+                            {
+                            "Name": "ActionAfterReboot",
+                            "Value": "[parameters('actionAfterReboot')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "AllowModuleOverwrite",
+                            "Value": "[parameters('allowModuleOverwrite')]",
+                            "TypeName": "System.Boolean"
+                            },
+                            {
+                            "Name": "Timestamp",
+                            "Value": "[parameters('timestamp')]",
+                            "TypeName": "System.String"
+                            }
+                          ]
+                      },
+                      "protectedSettings": {
+                        "Items": {
+                            "registrationKeyPrivate": "[parameters('registrationKey')]"
+                        }
+                      }
+                  }
+              }
+
+      ],
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
         "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic3Name'))]"
@@ -511,7 +675,90 @@
           ]
         }
       },
-      "resources": [],
+      "resources": [
+              {
+                  "type": "extensions",
+                  "name": "[concat(variables('virtualMachines_vm4Name'), '-DSCExtension')]",
+                  "apiVersion": "2016-03-30",
+                  "location": "[resourceGroup().location]",
+                  "tags": {},
+                  "dependsOn": [
+                      "[concat('Microsoft.Compute/virtualMachines/', variables('virtualMachines_vm4Name'))]"
+                  ],
+                  "properties": {
+                      "publisher": "Microsoft.Powershell",
+                      "type": "DSC",
+                      "typeHandlerVersion": "2.19",
+                      "autoUpgradeMinorVersion": false,
+                      "settings": {
+                          "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
+                          "sasToken": "",
+                          "configurationFunction": "RegistrationMetaConfigV2.ps1\\RegistrationMetaConfigV2",
+                          "properties": [
+                            {
+                            "Name": "RegistrationKey",
+                            "Value": {
+                                "UserName": "PLACEHOLDER_DONOTUSE",
+                                "Password": "PrivateSettingsRef:registrationKeyPrivate"
+                            },
+                            "TypeName": "System.Management.Automation.PSCredential"
+                            },
+                            {
+                            "Name": "RegistrationUrl",
+                            "Value": "[parameters('registrationUrl')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "NodeConfigurationName",
+                            "Value": "[variables('azureautomation_vm4ConfigurationName')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "ConfigurationMode",
+                            "Value": "[parameters('configurationMode')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "ConfigurationModeFrequencyMins",
+                            "Value": "[parameters('configurationModeFrequencyMins')]",
+                            "TypeName": "System.Int32"
+                            },
+                            {
+                            "Name": "RefreshFrequencyMins",
+                            "Value": "[parameters('refreshFrequencyMins')]",
+                            "TypeName": "System.Int32"
+                            },
+                            {
+                            "Name": "RebootNodeIfNeeded",
+                            "Value": "[parameters('rebootNodeIfNeeded')]",
+                            "TypeName": "System.Boolean"
+                            },
+                            {
+                            "Name": "ActionAfterReboot",
+                            "Value": "[parameters('actionAfterReboot')]",
+                            "TypeName": "System.String"
+                            },
+                            {
+                            "Name": "AllowModuleOverwrite",
+                            "Value": "[parameters('allowModuleOverwrite')]",
+                            "TypeName": "System.Boolean"
+                            },
+                            {
+                            "Name": "Timestamp",
+                            "Value": "[parameters('timestamp')]",
+                            "TypeName": "System.String"
+                            }
+                          ]
+                      },
+                      "protectedSettings": {
+                        "Items": {
+                            "registrationKeyPrivate": "[parameters('registrationKey')]"
+                        }
+                      }
+                  }
+              }
+
+      ],
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
         "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic4Name'))]"
