@@ -20,7 +20,7 @@ If (!(Get-AzureRMAutomationAccount -ResourceGroupName $env:ResourceGroupName -ea
     New-AzureRMAutomationAccount -ResourceGroupName $env:ResourceGroupName -name $AZureAutomationAccountName -Location $env:location -Plan Free
 }
 $DSCRegInfo = Get-AzureRmAutomationRegistrationInfo -ResourceGroupName $env:ResourceGroupName -AutomationAccountName $AZureAutomationAccountName
-$Configdata = $(ConvertFrom-ConfigData .\configurationdata.psd1 | convertto-json -Depth 20 -Compress).ToString()
+$Configdata = $(ConvertFrom-ConfigData "$env:BUILD_SOURCESDIRECTORY\configurationdata.psd1" | convertto-json -Depth 20 -Compress).ToString()
 $TimeStamp = $(get-date -uformat "%D %r").ToString()
 
 ##vso[task.setvariable variable=DSCRegistrationKey;]$(DSCRegInfo.PrimaryKey)
