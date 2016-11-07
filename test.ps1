@@ -7,6 +7,9 @@ param(
 )
 $ErrorActionPreference = 'Stop'
  
+
+ 
+ 
 $modulePath = Join-Path $TempDir Pester-master\Pester.psm1
  
 if (-not(Test-Path $modulePath)) {
@@ -20,7 +23,7 @@ if (-not(Test-Path $modulePath)) {
  
     Remove-Item $tempFile
 }
- 
+
 Import-Module $modulePath -DisableNameChecking
  
 $outputFile = "$SourceDir\$TestName-pester.xml"
