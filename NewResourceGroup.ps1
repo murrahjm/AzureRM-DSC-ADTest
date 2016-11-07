@@ -1,11 +1,17 @@
 #First build step, creates resource group if it doesn't already exist
 
-Param($ResourceGroupName, $location)
+$AZureAutomationAccountName = "AzureAutomation-$env:ResourceGroupName"
+$ErrorActionPreference = 'Stop'
+Import-Module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 
-If (!(Get-AzureRmResourceGroup $ResourceGroupName -ea 'SilentlyContinue')){
-    New-AzureRmResourceGroup -name $ResourceGroupName -location $location
+If (!(Get-AzureRmResourceGroup $env:ResourceGroupName -ea 'SilentlyContinue')){
+    New-AzureRmResourceGroup -name $env:ResourceGroupName -location $env:location
 }
-If (!(Get-AzureRMAutomationAccount -ResourceGroupName $ResourceGroupName -ea 'SilentlyContinue')){
-    New-AzureRMAutomationAccount -name "AzureAutomation-$ResourceGroupName" -Location $location -Plan Free
+If (!(Get-AzureRMAutomationAccount -ResourceGroupName $env:ResourceGroupName -ea 'SilentlyContinue')){
+    New-AzureRMAutomationAccount -name $AZureAutomationAccountName -Location $location -Plan Free
 }
+$DSCRegInfo = Get-AzureRmAutomationRegistrationInfo -ResourceGroupName $env:ResourceGroupName -AutomationAccountName $env:AZureAutomationAccountName
+
+Set-TaskVariable "DSCRegistrationKey" $($DSCRegInfo.PrimaryKey)
+Set-TaskVariable "DSCRegistrationURL" $($DSCRegInfo.Endpoint)
 
