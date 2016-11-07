@@ -11,7 +11,7 @@ Describe "Resource Group Test"{
     }
     It 'verifies DSC configuration info' {
         $DSCInfo = Get-AzureRmAutomationRegistrationInfo -ResourceGroupName $env:resourceGroupName -AutomationAccountName "AzureAutomation-$env:resourceGroupName" -ea Stop
-        $DSCInfo.RegistrationKey | should not benullorempty
-        $DSCInfo.RegistrationURL | should not benullorempty
+        $DSCInfo.PrimaryKey | should not benullorempty
+        $DSCInfo.Endpoint | should not benullorempty
     }
 }
