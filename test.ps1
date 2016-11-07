@@ -7,7 +7,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
  
-
+gci env:
  
  
 $modulePath = Join-Path $TempDir Pester-master\Pester.psm1
