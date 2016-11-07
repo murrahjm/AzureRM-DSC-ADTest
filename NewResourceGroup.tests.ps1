@@ -1,5 +1,5 @@
 #pester test to validate resource group exists before continuing to next build step
-
+gci Env:
 Describe "Resource Group Test"{
     It 'verifies Resourcegroup creation'{
         $ResourceGroup = get-AzureRMResourceGroup -Name $env:ResourceGroupname -ea Stop
