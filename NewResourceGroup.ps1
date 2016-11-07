@@ -1,5 +1,6 @@
 #First build step, creates resource group if it doesn't already exist
 gci env:
+write-host $env:ResourceGroupName
 $AZureAutomationAccountName = "AzureAutomation-$env:ResourceGroupName"
 $ErrorActionPreference = 'Stop'
 
