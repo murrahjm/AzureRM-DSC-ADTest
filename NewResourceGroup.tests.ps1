@@ -1,5 +1,4 @@
 #pester test to validate resource group exists before continuing to next build step
-Import-Module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
 
 Describe "Resource Group Test"{
     It 'verifies Resourcegroup creation'{
@@ -12,6 +11,6 @@ Describe "Resource Group Test"{
         $AA | should not benullorempty
     }
     It 'verifies TFS variables set with DSC info' {
-        Get-TaskVariable $distributedTaskContext "DSCRegistrationKey" | should not benullorempty
-        Get-TaskVariable $distributedTaskContext "DSCRegistrationURL" | should not benullorempty
+        $env:DSCRegistrationKey | should not benullorempty
+        $env:DSCRegistrationURL | should not benullorempty
     }
