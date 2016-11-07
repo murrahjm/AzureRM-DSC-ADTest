@@ -15,7 +15,7 @@
         "Type": "String"
       },
         "registrationKey": {
-            "type": "securestring",
+            "type": "string",
             "metadata": {
                 "description": "Registration key to use to onboard to the Azure Automation DSC pull/reporting server"
             }
