@@ -115,6 +115,7 @@
     "virtualMachines_vm2Name": "DC2",
     "virtualMachines_vm3Name": "DC3",
     "virtualMachines_vm4Name": "Server1",
+    "virtualMachines_vm5Name": "Client1",
     "virtualMachines_domainName": "testdomain.local",
     "azureautomation_vm1ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm1Name'))]",
     "azureautomation_vm2ConfigurationName": "[concat(parameters('configurationName'), '.', variables('virtualMachines_vm2Name'))]",
@@ -124,6 +125,7 @@
     "networkInterfaces_nic2Name": "NIC2",
     "networkInterfaces_nic3Name": "NIC3",
     "networkInterfaces_nic4Name": "NIC4",
+    "networkInterfaces_nic5Name": "NIC5",
     "sourceRootURI": "https://raw.githubusercontent.com/murrahjm/AzureRM-DSC-ADTest/master",
     "dscModules": {
       "xActiveDirectory": {
@@ -765,6 +767,62 @@
       ]
     },
     {
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[variables('virtualMachines_vm5Name')]",
+      "apiVersion": "2015-06-15",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('virtualMachines_vmSize')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftVisualStudio",
+            "offer": "Windows",
+            "sku": "Windows-10-N-x64",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[variables('virtualMachines_vm4Name')]",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri":  "[concat('https', '://', variables('storageAccountName'), '.blob.core.windows.net', '/vhds/', variables('virtualMachines_vm5Name'), '.vhd')]"
+            },
+            "caching": "ReadWrite"
+          },
+          "dataDisks": []
+        },
+        "osProfile": {
+          "computerName": "[variables('virtualMachines_vm4Name')]",
+          "adminUsername": "[parameters('virtualMachines_AdminUsername')]",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          },
+          "secrets": [],
+          "adminPassword": "[parameters('virtualMachines_adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "properties": {
+                "primary": true
+              },
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic5Name'))]"
+            }
+          ]
+        }
+      },
+      "resources": [
+
+      ],
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces',variables('networkInterfaces_nic5Name'))]"
+      ]
+    },
+
+    {
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('networkInterfaces_nic1Name')]",
       "apiVersion": "2016-03-30",
@@ -871,6 +929,38 @@
             "name": "ipconfig1",
             "properties": {
               "privateIPAddress": "192.168.1.5",
+              "privateIPAllocationMethod": "Static",
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'VNet1'), '/subnets/subnet1')]"
+              }
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false,
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'NSG1')]"
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNet1')]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', 'NSG1')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[variables('networkInterfaces_nic5Name')]",
+      "apiVersion": "2016-03-30",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAddress": "192.168.1.6",
               "privateIPAllocationMethod": "Static",
               "publicIPAddress": {
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'PublicIP1')]"
