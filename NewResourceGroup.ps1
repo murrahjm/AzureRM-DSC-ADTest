@@ -27,5 +27,5 @@ write-host "##vso[task.setvariable variable=DSCRegistrationKey;]$($DSCRegInfo.Pr
 write-host "##vso[task.setvariable variable=DSCRegistrationURL;]$($DSCRegInfo.EndPoint)"
 write-host "##vso[task.setvariable variable=jobID;]$([System.Guid]::NewGuid().toString())"
 write-host "##vso[task.setvariable variable=ConfigData;]`'$Configdata`'"
-write-host "##vso[task.setvariable variable=timestamp;]$TimeStamp"
+write-host "##vso[task.setvariable variable=timestamp;]`'$TimeStamp`'"
 
