@@ -7,9 +7,9 @@ If (!(Get-AzureRmResourceGroup $env:ResourceGroupName -ea 'SilentlyContinue')){
     New-AzureRmResourceGroup -name $env:ResourceGroupName -location $env:location
 }
 If (!(Get-AzureRMAutomationAccount -ResourceGroupName $env:ResourceGroupName -ea 'SilentlyContinue')){
-    New-AzureRMAutomationAccount -name $AZureAutomationAccountName -Location $location -Plan Free
+    New-AzureRMAutomationAccount -name $AZureAutomationAccountName -Location $$env:location -Plan Free
 }
-$DSCRegInfo = Get-AzureRmAutomationRegistrationInfo -ResourceGroupName $env:ResourceGroupName -AutomationAccountName $env:AZureAutomationAccountName
+$DSCRegInfo = Get-AzureRmAutomationRegistrationInfo -ResourceGroupName $env:ResourceGroupName -AutomationAccountName $AZureAutomationAccountName
 
 $env:DSCRegistrationKey = $($DSCRegInfo.PrimaryKey)
 $env:DSCRegistrationURL = $($DSCRegInfo.Endpoint)
