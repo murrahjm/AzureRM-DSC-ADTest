@@ -11,10 +11,9 @@ Properties {
     $AzureAutomationAccountName = "AzureAutomation-$env:ResourceGroupName"
     If ($env:BuildSystem -eq 'AppVeyor'){
         $SecureAdminPassword = $env:AdminPassword | convertto-securestring -AsPlainText -Force
-    } elseif (
-        $env:BuildSystem -eq 'Manual'){
+    } elseif ($env:BuildSystem -eq 'Manual'){
             $SecureAdminPassword = $env:AdminPassword | convertto-SecureString
-        }
+    }
 }
 
 Task Default -Depends BuildAzureEnvironment
@@ -38,7 +37,6 @@ If (!(Get-AzureRMAutomationAccount -ResourceGroupName $env:ResourceGroupName -ea
     New-AzureRMAutomationAccount -ResourceGroupName $env:ResourceGroupName -name $AZureAutomationAccountName -Location $env:location -Plan Free
 }
 $script:DSCRegInfo = Get-AzureRmAutomationRegistrationInfo -ResourceGroupName $env:ResourceGroupName -AutomationAccountName $AZureAutomationAccountName
-$script:Configdata = $(ConvertFrom-ConfigData "$env:ProjectRoot\configurationdata.psd1" | convertto-json -Depth 20 -Compress).ToString()
 
 }
 Task TestAzureResourceGroup -Depends BuildAzureResourceGroup {

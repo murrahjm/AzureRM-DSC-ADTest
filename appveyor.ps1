@@ -11,4 +11,4 @@ Foreach ($Module in $DependentModules){
     }
     import-module $module -ErrorAction Stop
 }
-invoke-psake "$PSScriptRoot\psake.ps1"
+invoke-psake "$env:ProjectRoot\psake.ps1"
