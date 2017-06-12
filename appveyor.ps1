@@ -9,8 +9,8 @@ Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 $DependentModules = @('AzureRM','Pester','Psake')
 Foreach ($Module in $DependentModules){
     If (-not (get-module $module -ListAvailable)){
-        install-module -name $Module -Scope CurrentUser
+        install-module -name $Module -Scope CurrentUser -allowClobber
     }
-    import-module $module -ErrorAction Stop
+    import-module $module -ErrorAction Stop -allowClobber
 }
 invoke-psake "$env:ProjectRoot\psake.ps1"

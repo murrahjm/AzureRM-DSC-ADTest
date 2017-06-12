@@ -2,11 +2,11 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/6asgmul1u1b3libh/branch/master?svg=true)](https://ci.appveyor.com/project/murrahjm/azurerm-dsc-adtest/branch/master)
 
 # AzureRM-DSC-ADTest
-Training sample for configuring an AD lab with Azure resource manager templates and Azure Automation DSC configurations to deploy entire environment with a visual studio team services build script.
+Training sample for configuring an AD lab with Azure resource manager templates and Azure Automation DSC configurations to deploy entire environment with an Appveyor build script.
 
-Goal is to perform this training/lab with everything in the cloud as much as possible.  Working files will stay in github, builds done with visual studio team services account.
+Goal is to perform this training/lab with everything in the cloud as much as possible.  Working files will stay in github, builds done with Appveyor.
 
-File list will probably be something like this:
+File list:
 
 --AzureDeploy.json - Azure resource manager template to deploy 4 VMs on 3 different subnets
 
