@@ -20,6 +20,7 @@ Task Default -Depends BuildAzureEnvironment
 
 Task Init {
     $lines
+    write-output "Initializing build with Powershell Version $psversion"
     #azure login code goes here for appveyor build system
     if ($env:BuildSystem -eq 'AppVeyor'){
         Disable-AzureRmDataCollection
