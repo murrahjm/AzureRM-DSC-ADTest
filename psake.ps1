@@ -68,7 +68,7 @@ Task TestAzureResourceGroup -Depends BuildAzureResourceGroup {
 Task BuildAzureEnvironment -Depends TestAzureResourceGroup {
     write-output "Building Azure deployment with the following variables:"
     $DeploymentParams = @{}
-    $DeploymentParams.jobConfigurationData = (import-powershelldatafile "$env:ProjectRoot\ConfigurationData.psd1")
+    $DeploymentParams.jobConfigurationData = (import-powershelldatafile "$env:ProjectRoot\ConfigurationData.psd1" | convertto-json -Depth 20 -Compress).ToString()
     $DeploymentParams.ResourceGroupName = $env:ResourceGroupName
     $DeploymentParams.TemplateFile = "$env:ProjectRoot\AzureDeploy.json"
     $DeploymentParams.TemplateParameterFile = "$env:ProjectRoot\AzureDeploy.parameters.json"
