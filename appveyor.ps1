@@ -4,6 +4,7 @@
 
 $env:BuildSystem = 'Appveyor'
 $env:ProjectRoot = $env:APPVEYOR_BUILD_FOLDER
+Install-PackageProvider -Name NuGet -RequiredVersion 2.8.5.201 -Force
 $DependentModules = @('Pester','Psake')
 Foreach ($Module in $DependentModules){
     If (-not (get-module $module -ListAvailable)){
