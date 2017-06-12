@@ -75,7 +75,7 @@ Task BuildAzureEnvironment -Depends TestAzureResourceGroup {
     $DeploymentParams.virtualMachines_adminPassword = $SecureAdminPassword
     $DeploymentParams.JobID = (new-guid).guid
     $DeploymentParams.Timestamp = $(get-date -uformat "%D %r").ToString()
-    write-output $DeploymentParams
+    write-output $DeploymentParams | format-table -autosize
 
     $TestResult = test-AzureRmResourceGroupDeployment @DeploymentParams
 
