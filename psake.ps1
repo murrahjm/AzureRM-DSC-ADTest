@@ -30,14 +30,15 @@ Task Init {
     #
 }
 Task BuildAzureResourceGroup -Depends Init {
+    $lines
     #create new azure resource group if it doesn't already exist
-If (!(Get-AzureRmResourceGroup $env:ResourceGroupName -ea 'SilentlyContinue')){
-    New-AzureRmResourceGroup -name $env:ResourceGroupName -location $env:location
-}
-If (!(Get-AzureRMAutomationAccount -ResourceGroupName $env:ResourceGroupName -ea 'SilentlyContinue')){
-    New-AzureRMAutomationAccount -ResourceGroupName $env:ResourceGroupName -name $AZureAutomationAccountName -Location $env:location -Plan Free
-}
-$script:DSCRegInfo = Get-AzureRmAutomationRegistrationInfo -ResourceGroupName $env:ResourceGroupName -AutomationAccountName $AZureAutomationAccountName
+    If (!(Get-AzureRmResourceGroup -name $env:ResourceGroupName -ea 'SilentlyContinue')){
+        New-AzureRmResourceGroup -name $env:ResourceGroupName -location $env:location
+    }
+    If (!(Get-AzureRMAutomationAccount -ResourceGroupName $env:ResourceGroupName -ea 'SilentlyContinue')){
+        New-AzureRMAutomationAccount -ResourceGroupName $env:ResourceGroupName -name $AZureAutomationAccountName -Location $env:location -Plan Free
+    }
+    $script:DSCRegInfo = Get-AzureRmAutomationRegistrationInfo -ResourceGroupName $env:ResourceGroupName -AutomationAccountName $AZureAutomationAccountName
 
 }
 Task TestAzureResourceGroup -Depends BuildAzureResourceGroup {
@@ -65,6 +66,7 @@ Task TestAzureResourceGroup -Depends BuildAzureResourceGroup {
     "`n"
 }
 Task BuildAzureEnvironment -Depends TestAzureResourceGroup {
+    $lines
     write-output "Building Azure deployment with the following variables:"
     $DeploymentParams = @{}
     $DeploymentParams.jobConfigurationData = (import-powershelldatafile "$env:ProjectRoot\ConfigurationData.psd1" | convertto-json -Depth 20 -Compress).ToString()
