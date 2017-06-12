@@ -11,6 +11,6 @@ Foreach ($Module in $DependentModules){
     If (-not (get-module $module -ListAvailable)){
         install-module -name $Module -Scope CurrentUser -allowClobber
     }
-    import-module $module -ErrorAction Stop -allowClobber
+    import-module $module -ErrorAction Stop
 }
 invoke-psake "$env:ProjectRoot\psake.ps1"
