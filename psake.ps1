@@ -15,7 +15,6 @@ Properties {
         $env:BuildSystem -eq 'Manual'){
             $SecureAdminPassword = $env:AdminPassword | convertto-SecureString
         }
-    )
 }
 
 Task Default -Depends BuildAzureEnvironment
