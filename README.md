@@ -1,3 +1,6 @@
+### Current Build Status:
+[![Build status](https://ci.appveyor.com/api/projects/status/6asgmul1u1b3libh/branch/master?svg=true)](https://ci.appveyor.com/project/murrahjm/azurerm-dsc-adtest/branch/master)
+
 # AzureRM-DSC-ADTest
 Training sample for configuring an AD lab with Azure resource manager templates and Azure Automation DSC configurations to deploy entire environment with a visual studio team services build script.
 
