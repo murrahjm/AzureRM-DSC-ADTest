@@ -7,7 +7,8 @@ Describe "Resource Group Test"{
     }
     It 'verifies azure automation account creation' {
         $AA = Get-AzureRmAutomationAccount -ResourceGroupName $env:ResourceGroupname -Name "AzureAutomation-$env:ResourceGroupname" -ea Stop
-        $AA | should not benullorempty
+        
+        
     }
     It 'verifies DSC configuration info' {
         $DSCInfo = Get-AzureRmAutomationRegistrationInfo -ResourceGroupName $env:resourceGroupName -AutomationAccountName "AzureAutomation-$env:resourceGroupName" -ea Stop
