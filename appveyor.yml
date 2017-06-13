@@ -14,6 +14,9 @@ environment:
   location: SouthCentralUS
   AdminPassword:
     secure: +Yhi3I1uR1xjocdrPn5HGA==
+  DomainAdminUserName: DomainAdmin
+  DomainAdminPassword:
+    secure: +Yhi3I1uR1xjocdrPn5HGA==
   AzurePassword:
     secure: YsJNS6K8bf+aQp94gs6CJA==
   AzureTenantID:

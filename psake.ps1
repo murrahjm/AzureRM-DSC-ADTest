@@ -11,8 +11,10 @@ Properties {
     $AzureAutomationAccountName = "AzureAutomation-$env:ResourceGroupName"
     If ($env:BuildSystem -eq 'AppVeyor'){
         $SecureAdminPassword = $env:AdminPassword | convertto-securestring -AsPlainText -Force
+        $DomainAdminPassword = $env:DomainAdminpassword | convertto-SecureString -AsPlainText -Force
     } elseif ($env:BuildSystem -eq 'Manual'){
             $SecureAdminPassword = $env:AdminPassword | convertto-SecureString
+            $DomainAdminPassword = $env:DomainAdminPassword | convertto-securestring
     }
 }
 
@@ -76,6 +78,8 @@ Task BuildAzureEnvironment -Depends TestAzureResourceGroup {
     $DeploymentParams.registrationKey = $script:DSCReginfo.PrimaryKey
     $DeploymentParams.registrationURL = $script:DSCReginfo.Endpoint
     $DeploymentParams.virtualMachines_adminPassword = $SecureAdminPassword
+    $DeploymentParams.DomainAdminUserName = $env:DomainAdminUserName
+    $DeploymentParams.DomainAdminPassword = $DomainAdminPassword
     $DeploymentParams.JobID = (new-guid).guid
     $DeploymentParams.Timestamp = $(get-date -uformat "%D %r").ToString()
     write-output $DeploymentParams | format-table -autosize

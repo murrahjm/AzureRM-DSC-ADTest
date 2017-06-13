@@ -2,25 +2,25 @@
     AllNodes = @(
 		@{
 			NodeName = 'DC1'
-			Domain = 'testdomain.local'
+			Domain = 'AzureADTest.local'
 			Site = 'Site1'
 			Functions = @('DomainController','SchemaMaster','DomainNamingMaster','RIDMaster','PDCEmulator','InfrastructureMaster')
 			},
 		@{
 			NodeName = 'DC2'
-			Domain = 'testdomain.local'
+			Domain = 'AzureADTest.local'
 			Site = 'Site2'
 			Functions = @('DomainController')
 			},
 		@{
 			NodeName = 'DC3'
-			Domain = 'testdomain.local'
+			Domain = 'AzureADTest.local'
 			Site = 'Site3'
 			Functions = @('DomainController','backup')
 			},
 		@{
 			NodeName = 'Server1'
-			Domain = 'testdomain.local'
+			Domain = 'AzureADTest.local'
 			Site = 'Site1'
 			Functions = @('MemberServer')
 			}
@@ -28,19 +28,19 @@
 	NonNodeData = @{
 	Forests = @(
 		@{
-			ForestName = 'testdomain.local'
+			ForestName = 'AzureADTest.local'
 			Domains = @(
 				@{
-					DomainName = 'testdomain.local'
-					PDCEmulator = 'DC1.testdomain.local'
-					RIDMaster = 'DC1.testdomain.local'
-					InfrastructureMaster = 'DC1.testdomain.local'
+					DomainName = 'AzureADTest.local'
+					PDCEmulator = 'DC1.AzureADTest.local'
+					RIDMaster = 'DC1.AzureADTest.local'
+					InfrastructureMaster = 'DC1.AzureADTest.local'
 				}
 			)
 			ExternalTimeServers = @('0.north-america.pool.ntp.org','1.north-america.pool.ntp.org')
 			FSMORoles = @{
-				SchemaMaster = 'DC1.testdomain.local'
-				DomainnamingMaster = 'DC1.testdomain.local'
+				SchemaMaster = 'DC1.AzureADTest.local'
+				DomainnamingMaster = 'DC1.AzureADTest.local'
 			}
 			ADSites = @(
 				@{

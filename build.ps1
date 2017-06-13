@@ -8,6 +8,8 @@ $env:ResourceGroupName = 'ADTest'
 $env:Location ='SouthCentralUS'
 $DependentModules = @('AzureRM','Pester','Psake')
 $env:AdminPassword = $(read-host "AdminPassword" -AsSecureString | convertFrom-SecureString)
+$env:DomainAdminUsername = read-host "Domain Admin Username"
+$env:DomainAdminPassword = $(readhost "Domain Admin Password" -AsSecureString | convertfrom-securestring)
 $ErrorActionPreference = 'Stop'
 Foreach ($Module in $DependentModules){
     If (-not (get-module $module -ListAvailable)){

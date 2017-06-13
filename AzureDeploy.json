@@ -8,6 +8,12 @@
       "virtualMachines_adminUsername": {
         "Type": "String"
       },
+      "DomainAdminUserName":{
+        "Type": "String"
+      },
+      "DomainAdminPassword":{
+        "Type": "SecureString"
+      },
         "virtualmachines_vmSize": {
         "Type": "String"
       },
@@ -348,6 +354,12 @@
                       "protectedSettings": {
                         "Items": {
                             "registrationKeyPrivate": "[parameters('registrationKey')]"
+                        },
+                        "configurationArguments": {
+                          "DomainAdminCredential": {
+                            "username": "[parameters('DomainAdminUserName')]",
+                            "password": "[parameters('DomainAdminPassword')]"
+                          }
                         }
                       }
                   }
@@ -483,6 +495,12 @@
                       "protectedSettings": {
                         "Items": {
                             "registrationKeyPrivate": "[parameters('registrationKey')]"
+                        },
+                        "configurationArguments": {
+                          "DomainAdminCredential": {
+                            "username": "[parameters('DomainAdminUserName')]",
+                            "password": "[parameters('DomainAdminPassword')]"
+                          }
                         }
                       }
                   }
@@ -619,6 +637,12 @@
                       "protectedSettings": {
                         "Items": {
                             "registrationKeyPrivate": "[parameters('registrationKey')]"
+                        },
+                        "configurationArguments": {
+                          "DomainAdminCredential": {
+                            "username": "[parameters('DomainAdminUserName')]",
+                            "password": "[parameters('DomainAdminPassword')]"
+                          }
                         }
                       }
                   }
@@ -755,6 +779,12 @@
                       "protectedSettings": {
                         "Items": {
                             "registrationKeyPrivate": "[parameters('registrationKey')]"
+                        },
+                        "configurationArguments": {
+                          "DomainAdminCredential": {
+                            "username": "[parameters('DomainAdminUserName')]",
+                            "password": "[parameters('DomainAdminPassword')]"
+                          }
                         }
                       }
                   }

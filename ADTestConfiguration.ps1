@@ -1,4 +1,7 @@
 configuration ADTestConfiguration {
+	Param(
+		[PSCredential]$DomainAdminCredential
+	)
 	Import-DscResource -modulename PSDesiredStateConfiguration
 	Import-DscResource -modulename xPSDesiredStateConfiguration -moduleversion 4.0.0.0
 	Import-DscResource -modulename xActiveDirectory
@@ -30,6 +33,11 @@ configuration ADTestConfiguration {
 				}
 			}
 			If (($Node.domain -eq $ForestData.ForestName) -and ("$($Node.NodeName).$($Node.Domain)" -eq $DomainData.PDCEmulator)){
+				xADDomain newdomain {
+					DomainName = $ForestData.ForestName
+					DomainAdministratorCredential = $DomainAdminCredential
+					SafemodeAdministratorPassword = $DomainAdminCredential
+				}
 				Registry NTPServers {
 					Key = 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\W32Time\Parameters'
 					ValueName = 'NtpServer'
@@ -45,6 +53,17 @@ configuration ADTestConfiguration {
 					Ensure = 'Present'
 				}
 			} else {
+				xWaitForADDomain waitforDomain {
+					DomainName = $Node.Domain
+					RetryIntervalSec = 30
+					RetryCount = 100
+				}
+				xADDomainController AdditionalDCs {
+					DomainName = $Node.Domain
+					DomainAdministratorCredential = $DomainAdminCredential
+					SafemodeAdministratorPassword = $DomainAdminCredential
+					DependsOn = '[xWaitForADDomain]waitforDomain'
+				}
 				Registry NTPType {
 					Key = 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\W32Time\Parameters'
 					ValueName = 'Type'
