@@ -5,24 +5,28 @@
 			Domain = 'AzureADTest.local'
 			Site = 'Site1'
 			Functions = @('DomainController','SchemaMaster','DomainNamingMaster','RIDMaster','PDCEmulator','InfrastructureMaster')
+			PSDscAllowPlainTextPassword = $true
 			},
 		@{
 			NodeName = 'DC2'
 			Domain = 'AzureADTest.local'
 			Site = 'Site2'
 			Functions = @('DomainController')
+			PSDscAllowPlainTextPassword = $true
 			},
 		@{
 			NodeName = 'DC3'
 			Domain = 'AzureADTest.local'
 			Site = 'Site3'
 			Functions = @('DomainController','backup')
+			PSDscAllowPlainTextPassword = $true
 			},
 		@{
 			NodeName = 'Server1'
 			Domain = 'AzureADTest.local'
 			Site = 'Site1'
 			Functions = @('MemberServer')
+			PSDscAllowPlainTextPassword = $true
 			}
     )
 	NonNodeData = @{
