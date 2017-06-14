@@ -1,5 +1,6 @@
 configuration ADTestConfiguration {
 	Param(
+		[Parameter(Mandatory=$True)]
 		[PSCredential]$DomainAdminCredential
 	)
 	Import-DscResource -modulename PSDesiredStateConfiguration
