@@ -290,7 +290,7 @@
                       "publisher": "Microsoft.Powershell",
                       "type": "DSC",
                       "typeHandlerVersion": "2.24",
-                      "autoUpgradeMinorVersion": false,
+                      "autoUpgradeMinorVersion": true,
                       "settings": {
                           "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
                           "sasToken": "",
@@ -301,6 +301,14 @@
                             "Value": {
                                 "UserName": "PLACEHOLDER_DONOTUSE",
                                 "Password": "PrivateSettingsRef:registrationKeyPrivate"
+                            },
+                            "TypeName": "System.Management.Automation.PSCredential"
+                            },
+                            {
+                            "Name": "DomainAdminCredentials",
+                            "Value": {
+                                "UserName": "[parameters('DomainAdminUserName')]",
+                                "Password": "PrivateSettingsRef:DomainAdminPassword"
                             },
                             "TypeName": "System.Management.Automation.PSCredential"
                             },
@@ -353,13 +361,8 @@
                       },
                       "protectedSettings": {
                         "Items": {
-                            "registrationKeyPrivate": "[parameters('registrationKey')]"
-                        },
-                        "configurationArguments": {
-                          "DomainAdminCredential": {
-                            "username": "[parameters('DomainAdminUserName')]",
-                            "password": "[parameters('DomainAdminPassword')]"
-                          }
+                            "registrationKeyPrivate": "[parameters('registrationKey')]",
+                            "DomainAdminPassword": "[parameters('DomainAdminPassword')]"
                         }
                       }
                   }
@@ -431,7 +434,7 @@
                       "publisher": "Microsoft.Powershell",
                       "type": "DSC",
                       "typeHandlerVersion": "2.24",
-                      "autoUpgradeMinorVersion": false,
+                      "autoUpgradeMinorVersion": true,
                       "settings": {
                           "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
                           "sasToken": "",
@@ -442,6 +445,14 @@
                             "Value": {
                                 "UserName": "PLACEHOLDER_DONOTUSE",
                                 "Password": "PrivateSettingsRef:registrationKeyPrivate"
+                            },
+                            "TypeName": "System.Management.Automation.PSCredential"
+                            },
+                            {
+                            "Name": "DomainAdminCredentials",
+                            "Value": {
+                                "UserName": "[parameters('DomainAdminUserName')]",
+                                "Password": "PrivateSettingsRef:DomainAdminPassword"
                             },
                             "TypeName": "System.Management.Automation.PSCredential"
                             },
@@ -494,13 +505,8 @@
                       },
                       "protectedSettings": {
                         "Items": {
-                            "registrationKeyPrivate": "[parameters('registrationKey')]"
-                        },
-                        "configurationArguments": {
-                          "DomainAdminCredential": {
-                            "username": "[parameters('DomainAdminUserName')]",
-                            "password": "[parameters('DomainAdminPassword')]"
-                          }
+                            "registrationKeyPrivate": "[parameters('registrationKey')]",
+                            "DomainAdminPassword": "[parameters('DomainAdminPassword')]"
                         }
                       }
                   }
@@ -573,7 +579,7 @@
                       "publisher": "Microsoft.Powershell",
                       "type": "DSC",
                       "typeHandlerVersion": "2.24",
-                      "autoUpgradeMinorVersion": false,
+                      "autoUpgradeMinorVersion": true,
                       "settings": {
                           "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
                           "sasToken": "",
@@ -584,6 +590,14 @@
                             "Value": {
                                 "UserName": "PLACEHOLDER_DONOTUSE",
                                 "Password": "PrivateSettingsRef:registrationKeyPrivate"
+                            },
+                            "TypeName": "System.Management.Automation.PSCredential"
+                            },
+                            {
+                            "Name": "DomainAdminCredentials",
+                            "Value": {
+                                "UserName": "[parameters('DomainAdminUserName')]",
+                                "Password": "PrivateSettingsRef:DomainAdminPassword"
                             },
                             "TypeName": "System.Management.Automation.PSCredential"
                             },
@@ -636,13 +650,8 @@
                       },
                       "protectedSettings": {
                         "Items": {
-                            "registrationKeyPrivate": "[parameters('registrationKey')]"
-                        },
-                        "configurationArguments": {
-                          "DomainAdminCredential": {
-                            "username": "[parameters('DomainAdminUserName')]",
-                            "password": "[parameters('DomainAdminPassword')]"
-                          }
+                            "registrationKeyPrivate": "[parameters('registrationKey')]",
+                            "DomainAdminPassword": "[parameters('DomainAdminPassword')]"
                         }
                       }
                   }
@@ -715,7 +724,7 @@
                       "publisher": "Microsoft.Powershell",
                       "type": "DSC",
                       "typeHandlerVersion": "2.24",
-                      "autoUpgradeMinorVersion": false,
+                      "autoUpgradeMinorVersion": true,
                       "settings": {
                           "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
                           "sasToken": "",
@@ -726,6 +735,14 @@
                             "Value": {
                                 "UserName": "PLACEHOLDER_DONOTUSE",
                                 "Password": "PrivateSettingsRef:registrationKeyPrivate"
+                            },
+                            "TypeName": "System.Management.Automation.PSCredential"
+                            },
+                            {
+                            "Name": "DomainAdminCredentials",
+                            "Value": {
+                                "UserName": "[parameters('DomainAdminUserName')]",
+                                "Password": "PrivateSettingsRef:DomainAdminPassword"
                             },
                             "TypeName": "System.Management.Automation.PSCredential"
                             },
@@ -778,13 +795,8 @@
                       },
                       "protectedSettings": {
                         "Items": {
-                            "registrationKeyPrivate": "[parameters('registrationKey')]"
-                        },
-                        "configurationArguments": {
-                          "DomainAdminCredential": {
-                            "username": "[parameters('DomainAdminUserName')]",
-                            "password": "[parameters('DomainAdminPassword')]"
-                          }
+                            "registrationKeyPrivate": "[parameters('registrationKey')]",
+                            "DomainAdminPassword": "[parameters('DomainAdminPassword')]"
                         }
                       }
                   }
