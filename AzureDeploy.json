@@ -813,7 +813,7 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "[variables('virtualMachines_vm4Name')]",
+            "name": "[variables('virtualMachines_vm5Name')]",
             "createOption": "FromImage",
             "vhd": {
               "uri":  "[concat('https', '://', variables('storageAccountName'), '.blob.core.windows.net', '/vhds/', variables('virtualMachines_vm5Name'), '.vhd')]"
@@ -823,7 +823,7 @@
           "dataDisks": []
         },
         "osProfile": {
-          "computerName": "[variables('virtualMachines_vm4Name')]",
+          "computerName": "[variables('virtualMachines_vm5Name')]",
           "adminUsername": "[parameters('virtualMachines_AdminUsername')]",
           "windowsConfiguration": {
             "provisionVMAgent": true,
