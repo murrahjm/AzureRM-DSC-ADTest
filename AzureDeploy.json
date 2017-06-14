@@ -289,7 +289,7 @@
                   "properties": {
                       "publisher": "Microsoft.Powershell",
                       "type": "DSC",
-                      "typeHandlerVersion": "2.19",
+                      "typeHandlerVersion": "2.24",
                       "autoUpgradeMinorVersion": false,
                       "settings": {
                           "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
@@ -430,7 +430,7 @@
                   "properties": {
                       "publisher": "Microsoft.Powershell",
                       "type": "DSC",
-                      "typeHandlerVersion": "2.19",
+                      "typeHandlerVersion": "2.24",
                       "autoUpgradeMinorVersion": false,
                       "settings": {
                           "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
@@ -572,7 +572,7 @@
                   "properties": {
                       "publisher": "Microsoft.Powershell",
                       "type": "DSC",
-                      "typeHandlerVersion": "2.19",
+                      "typeHandlerVersion": "2.24",
                       "autoUpgradeMinorVersion": false,
                       "settings": {
                           "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
@@ -714,7 +714,7 @@
                   "properties": {
                       "publisher": "Microsoft.Powershell",
                       "type": "DSC",
-                      "typeHandlerVersion": "2.19",
+                      "typeHandlerVersion": "2.24",
                       "autoUpgradeMinorVersion": false,
                       "settings": {
                           "modulesUrl": "https://eus2oaasibizamarketprod1.blob.core.windows.net/automationdscpreview/RegistrationMetaConfigV2.zip",
